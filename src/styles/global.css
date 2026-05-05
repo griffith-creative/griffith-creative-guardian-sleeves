@@ -33,15 +33,7 @@
 
 }
 
-/* ─── Base Reset ─── */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* ─── Base Overrides (Tailwind preflight handles the full reset) ─── */
 html {
   font-family: var(--font-sans);
   font-size: 16px;
@@ -54,27 +46,6 @@ html {
 
 body {
   min-height: 100dvh;
-}
-
-img,
-picture,
-video,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font: inherit;
-  color: inherit;
 }
 
 /* ─── Reduced Motion ─── */
