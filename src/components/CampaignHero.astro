@@ -1,18 +1,19 @@
 ---
 interface Props {
   image?: string;
+  imageAlt?: string;
   headline: string;
   cta: string;
   ctaHref: string;
   headlineColor?: 'canvas' | 'ink';
 }
 
-const { image, headline, cta, ctaHref, headlineColor = 'canvas' } = Astro.props;
+const { image, imageAlt = 'Guardian Sleeves', headline, cta, ctaHref, headlineColor = 'canvas' } = Astro.props;
 ---
 
 <section class="relative w-full aspect-[16/9] md:aspect-[21/9] bg-soft-cloud overflow-hidden flex items-end" data-cursor-vignette>
   {image ? (
-    <img src={image} alt="" class="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
+    <img src={image} alt={imageAlt} class="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
   ) : (
     <div class="absolute inset-0 w-full h-full bg-ink flex items-center justify-center">
       <span class="text-[12px] font-medium text-stone">PHOTO: Hero — black sleeve fanned across play mat</span>
