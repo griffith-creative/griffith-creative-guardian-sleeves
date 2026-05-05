@@ -46,25 +46,25 @@ import Footer from '../components/Footer.astro';
   <!-- Why Guardian — Stats -->
   <section class="py-[var(--space-section)] bg-soft-cloud" data-animate="fade-up">
     <div class="container-guardian">
-      <h2 class="font-display text-[48px] md:text-[64px] leading-[0.9] uppercase text-ink mb-12">WHY GUARDIAN</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <h2 class="font-display text-[48px] md:text-[64px] lg:text-[96px] leading-[0.9] uppercase text-ink" style="margin-bottom: var(--space-section);">WHY GUARDIAN</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
         <div class="flex flex-col">
-          <span class="font-display text-[64px] md:text-[80px] leading-none text-ink">
+          <span class="font-display text-[64px] md:text-[80px] lg:text-[120px] leading-[0.9] text-ink">
             <span data-count-up="0.001" data-count-suffix="s" data-count-prefix="">0</span>
           </span>
-          <p class="text-[14px] font-medium text-mute mt-2">Shuffle drag</p>
+          <p class="text-[14px] font-medium text-mute uppercase mt-2" style="letter-spacing: 0.04em;">Shuffle drag</p>
         </div>
         <div class="flex flex-col">
-          <span class="font-display text-[64px] md:text-[80px] leading-none text-ink">
+          <span class="font-display text-[64px] md:text-[80px] lg:text-[120px] leading-[0.9] text-ink">
             <span data-count-up="100" data-count-suffix="%">0</span>
           </span>
-          <p class="text-[14px] font-medium text-mute mt-2">Archival safe</p>
+          <p class="text-[14px] font-medium text-mute uppercase mt-2" style="letter-spacing: 0.04em;">Archival safe</p>
         </div>
         <div class="flex flex-col">
-          <span class="font-display text-[64px] md:text-[80px] leading-none text-ink">
+          <span class="font-display text-[64px] md:text-[80px] lg:text-[120px] leading-[0.9] text-ink">
             <span data-count-up="4" data-count-suffix=" TCGs">0</span>
           </span>
-          <p class="text-[14px] font-medium text-mute mt-2">Supported</p>
+          <p class="text-[14px] font-medium text-mute uppercase mt-2" style="letter-spacing: 0.04em;">Supported</p>
         </div>
       </div>
     </div>
@@ -75,7 +75,7 @@ import Footer from '../components/Footer.astro';
     headline="TESTED ON THE TABLE"
     cta="View Sleeves"
     ctaHref="/products"
-    photoDescription="Play-mat shot — cards mid-shuffle on tournament table"
+    photoDescription="Black sleeves on play mat — wide editorial crop"
   />
 
   <!-- Marquee -->
@@ -94,23 +94,31 @@ import Footer from '../components/Footer.astro';
 
   <!-- Email Capture -->
   <section class="py-[var(--space-section)] bg-soft-cloud" data-animate="fade-up">
-    <div class="container-guardian max-w-lg mx-auto text-center">
-      <h2 class="text-[24px] font-medium leading-[1.2] text-ink mb-2">Get drops first.</h2>
-      <p class="text-[14px] font-medium text-mute mb-6">New colors. Restocks. No spam.</p>
-      <form class="flex gap-3">
-        <label for="email-capture" class="sr-only">Email address</label>
-        <input
-          type="email"
-          id="email-capture"
-          name="email"
-          placeholder="your@email.com"
-          required
-          class="flex-1 border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
-        />
-        <button type="submit" class="bg-ink text-canvas font-medium text-[16px] px-6 py-3 rounded-full hover:bg-charcoal transition-colors whitespace-nowrap">
-          Sign Up
-        </button>
-      </form>
+    <div class="container-guardian">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+        <!-- Left column (5/12) -->
+        <div class="md:col-span-5">
+          <h2 class="font-display text-[48px] md:text-[64px] lg:text-[96px] leading-[0.9] uppercase text-ink">Get drops first.</h2>
+          <p class="text-[16px] text-mute mt-4" style="max-width: 40ch;">New colors. Restocks. No spam.</p>
+        </div>
+        <!-- Right column (7/12) -->
+        <div class="md:col-span-7 flex items-center">
+          <form class="flex gap-3 w-full max-w-xl">
+            <label for="email-capture" class="sr-only">Email address</label>
+            <input
+              type="email"
+              id="email-capture"
+              name="email"
+              placeholder="your@email.com"
+              required
+              class="flex-1 border border-hairline rounded-full px-5 py-3 h-12 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
+            />
+            <button type="submit" class="bg-ink text-canvas font-medium text-[16px] px-6 h-12 rounded-full hover:bg-charcoal transition-colors whitespace-nowrap">
+              Sign Up
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 

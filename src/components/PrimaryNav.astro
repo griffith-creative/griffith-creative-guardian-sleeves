@@ -38,10 +38,19 @@ const navLinks = [
     </ul>
 
     <!-- Right cluster -->
-    <div class="flex items-center gap-4">
-      <!-- Search icon -->
-      <button type="button" aria-label="Search" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-soft-cloud transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div class="flex items-center gap-3">
+      <!-- Search pill (desktop) -->
+      <button type="button" aria-label="Search" class="hidden md:flex items-center gap-2 h-10 px-4 bg-soft-cloud text-mute text-[16px] font-medium transition-colors hover:bg-hairline-soft" style="border-radius: var(--rounded-md);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ink">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search sleeves</span>
+      </button>
+
+      <!-- Search icon (mobile) -->
+      <button type="button" aria-label="Search" class="md:hidden text-ink w-10 h-10 flex items-center justify-center bg-soft-cloud rounded-full transition-colors hover:bg-hairline-soft">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
@@ -49,7 +58,7 @@ const navLinks = [
 
       <!-- Cart icon (links to Shopify) -->
       <!-- Phase 2 will replace this with Shopify Storefront API checkout -->
-      <a href="https://guardiansleeves.com/cart" target="_blank" rel="noopener" aria-label="Shopping cart" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-soft-cloud transition-colors">
+      <a href="https://guardiansleeves.com/cart" target="_blank" rel="noopener" aria-label="Shopping cart" class="text-ink w-11 h-11 flex items-center justify-center rounded-full hover:bg-soft-cloud transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
           <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -58,7 +67,7 @@ const navLinks = [
       </a>
 
       <!-- Mobile hamburger -->
-      <button type="button" aria-label="Open menu" class="md:hidden w-11 h-11 flex items-center justify-center rounded-full hover:bg-soft-cloud transition-colors" data-mobile-menu-trigger>
+      <button type="button" aria-label="Open menu" class="text-ink md:hidden w-11 h-11 flex items-center justify-center rounded-full hover:bg-soft-cloud transition-colors" data-mobile-menu-trigger>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
