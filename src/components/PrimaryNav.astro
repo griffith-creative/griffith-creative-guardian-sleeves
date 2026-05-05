@@ -1,0 +1,70 @@
+---
+interface Props {
+  activeSection?: string;
+}
+
+const { activeSection } = Astro.props;
+
+const navLinks = [
+  { label: 'Sleeves', href: '/products' },
+  { label: 'Wholesale', href: '/wholesale' },
+  { label: 'About', href: '/about' },
+  { label: 'FAQ', href: '/faq' },
+];
+---
+
+<nav class="sticky top-0 z-40 bg-canvas h-16 flex items-center" style="box-shadow: var(--elevation-inset);" aria-label="Primary navigation">
+  <div class="container-guardian flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="font-display text-[28px] leading-none tracking-tight text-ink uppercase">
+      GUARDIAN
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden md:flex items-center gap-8" role="list">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              'text-[16px] font-medium leading-[1.5] text-ink pb-1 transition-colors',
+              activeSection === link.href && 'border-b-2 border-ink',
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Right cluster -->
+    <div class="flex items-center gap-4">
+      <!-- Search icon -->
+      <button type="button" aria-label="Search" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-soft-cloud transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+
+      <!-- Cart icon (links to Shopify) -->
+      <!-- Phase 2 will replace this with Shopify Storefront API checkout -->
+      <a href="https://guardiansleeves.com/cart" target="_blank" rel="noopener" aria-label="Shopping cart" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-soft-cloud transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button type="button" aria-label="Open menu" class="md:hidden w-11 h-11 flex items-center justify-center rounded-full hover:bg-soft-cloud transition-colors" data-mobile-menu-trigger>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,110 @@
+---
+import Layout from '../../components/Layout.astro';
+import UtilityBar from '../../components/UtilityBar.astro';
+import PrimaryNav from '../../components/PrimaryNav.astro';
+import MobileNav from '../../components/MobileNav.astro';
+import SpecBlock from '../../components/SpecBlock.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout title="Guardian Black — Guardian Sleeves" description="Guardian Sleeves Black. 66×91mm. Archival polypropylene. Matte finish. 100 per pack. $10.99.">
+  <script slot="json-ld" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Guardian Sleeves Black",
+    "description": "Tournament-grade card sleeves. 66×91mm. Archival polypropylene. Matte finish. 100 per pack.",
+    "brand": { "@type": "Brand", "name": "Guardian Sleeves" },
+    "offers": {
+      "@type": "Offer",
+      "price": "10.99",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://guardiansleeves.com/products/guardian-sleeves-black?variant=51129415565607"
+    }
+  })}></script>
+  <UtilityBar slot="utility-bar" />
+  <PrimaryNav slot="nav" activeSection="/products" />
+  <MobileNav slot="nav" />
+
+  <section class="py-[var(--space-section)]">
+    <div class="container-guardian">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <!-- Image Gallery -->
+        <div data-animate="fade-up">
+          <div class="aspect-square bg-soft-cloud flex items-center justify-center">
+            <span class="text-[12px] font-medium text-stone">PHOTO: PDP main — product box 3/4 angle on soft-cloud</span>
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div data-animate="fade-up">
+          <h1 class="font-display text-[48px] md:text-[64px] leading-[0.9] uppercase text-ink">GUARDIAN BLACK</h1>
+          <p class="text-[24px] font-medium leading-[1.2] text-ink mt-4">$10.99</p>
+
+          <div class="mt-8">
+            <SpecBlock specs={[
+              { label: 'Size', value: '66×91mm' },
+              { label: 'Material', value: 'Archival PP' },
+              { label: 'Finish', value: 'Matte' },
+              { label: 'Pack', value: '100 Sleeves' },
+            ]} />
+          </div>
+
+          <!-- Buy Button -->
+          <div class="mt-8">
+            <!-- Phase 2 will replace this with Shopify Storefront API checkout -->
+            <a
+              href="https://guardiansleeves.com/products/guardian-sleeves-black?variant=51129415565607"
+              target="_blank"
+              rel="noopener"
+              class="inline-block w-full text-center bg-ink text-canvas font-medium text-[16px] px-8 py-4 rounded-full hover:bg-charcoal transition-colors"
+            >
+              Buy Now
+            </a>
+          </div>
+
+          <!-- Disclosure Rows -->
+          <div class="mt-10 divide-y divide-hairline border-t border-hairline">
+            <details class="py-6 group">
+              <summary class="flex items-center justify-between cursor-pointer list-none">
+                <span class="text-[16px] font-medium text-ink">Product Details</span>
+                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div class="pt-4 text-[16px] text-mute leading-[1.5]">
+                <p>Guardian Black sleeves are precision-cut from archival-grade polypropylene. The matte finish eliminates glare under tournament lighting while providing a controlled shuffle feel. Standard 66×91mm fits Magic: The Gathering, Pokemon, and other standard-size TCGs.</p>
+              </div>
+            </details>
+
+            <details class="py-6 group">
+              <summary class="flex items-center justify-between cursor-pointer list-none">
+                <span class="text-[16px] font-medium text-ink">Shipping & Returns</span>
+                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div class="pt-4 text-[16px] text-mute leading-[1.5]">
+                <p>Free shipping on orders over $50. Standard shipping 3–5 business days. Returns accepted within 30 days of purchase for unopened product.</p>
+              </div>
+            </details>
+
+            <details class="py-6 group">
+              <summary class="flex items-center justify-between cursor-pointer list-none">
+                <span class="text-[16px] font-medium text-ink">Reviews</span>
+                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div class="pt-4 text-[16px] text-mute leading-[1.5]">
+                <p>Reviews coming soon.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>

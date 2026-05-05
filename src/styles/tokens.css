@@ -1,0 +1,103 @@
+:root {
+  /* ─── Colors ─── */
+  --canvas: #ffffff;
+  --soft-cloud: #f5f5f5;
+  --ink: #0a0a0a;
+  --charcoal: #2a2a2a;
+  --ash: #4b4b4d;
+  --mute: #707072;
+  --stone: #9e9ea0;
+  --hairline: #cacacb;
+  --hairline-soft: #e5e5e5;
+  --accent: #ffffff;
+  --success: #007d48;
+  --warning: #d30005;
+
+  /* ─── Typography ─── */
+  --font-display: 'Bebas Neue', Impact, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Display Campaign — Bebas Neue 96px/0.9 uppercase */
+  --text-display-campaign: 500 96px/0.9 var(--font-display);
+
+  /* Heading XL — Inter 32px/1.2 medium */
+  --text-heading-xl-size: 32px;
+  --text-heading-xl-weight: 500;
+  --text-heading-xl-line: 1.2;
+
+  /* Heading LG — Inter 24px/1.2 medium */
+  --text-heading-lg-size: 24px;
+  --text-heading-lg-weight: 500;
+  --text-heading-lg-line: 1.2;
+
+  /* Heading MD — Inter 16px/1.75 medium */
+  --text-heading-md-size: 16px;
+  --text-heading-md-weight: 500;
+  --text-heading-md-line: 1.75;
+
+  /* Body MD — Inter 16px/1.5 regular */
+  --text-body-md-size: 16px;
+  --text-body-md-weight: 400;
+  --text-body-md-line: 1.5;
+
+  /* Body Strong — Inter 16px/1.5 medium */
+  --text-body-strong-size: 16px;
+  --text-body-strong-weight: 500;
+  --text-body-strong-line: 1.5;
+
+  /* Button LG — Inter 24px/1.2 medium */
+  --text-button-lg-size: 24px;
+  --text-button-lg-weight: 500;
+  --text-button-lg-line: 1.2;
+
+  /* Button MD — Inter 16px/1.5 medium */
+  --text-button-md-size: 16px;
+  --text-button-md-weight: 500;
+  --text-button-md-line: 1.5;
+
+  /* Button SM — Inter 14px/1.5 medium */
+  --text-button-sm-size: 14px;
+  --text-button-sm-weight: 500;
+  --text-button-sm-line: 1.5;
+
+  /* Link MD — Inter 16px/1.75 medium underline */
+  --text-link-md-size: 16px;
+  --text-link-md-weight: 500;
+  --text-link-md-line: 1.75;
+
+  /* Caption MD — Inter 14px/1.5 medium */
+  --text-caption-md-size: 14px;
+  --text-caption-md-weight: 500;
+  --text-caption-md-line: 1.5;
+
+  /* Caption SM — Inter 12px/1.5 medium */
+  --text-caption-sm-size: 12px;
+  --text-caption-sm-weight: 500;
+  --text-caption-sm-line: 1.5;
+
+  /* Utility XS — Inter 9px/1.75 medium */
+  --text-utility-xs-size: 9px;
+  --text-utility-xs-weight: 500;
+  --text-utility-xs-line: 1.75;
+
+  /* ─── Spacing ─── */
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 18px;
+  --space-xl: 24px;
+  --space-xxl: 30px;
+  --space-section: 48px;
+
+  /* ─── Border Radius ─── */
+  --rounded-none: 0px;
+  --rounded-sm: 18px;
+  --rounded-md: 24px;
+  --rounded-lg: 30px;
+  --rounded-full: 9999px;
+
+  /* ─── Elevation ─── */
+  --elevation-hairline: 1px solid var(--hairline);
+  --elevation-inset: inset 0 -1px 0 var(--hairline-soft);
+}

@@ -1,0 +1,77 @@
+---
+const columns = [
+  {
+    title: 'Shop',
+    links: [
+      { label: 'Guardian Black', href: '/products/guardian-black' },
+      { label: 'All Sleeves', href: '/products' },
+    ],
+  },
+  {
+    title: 'Wholesale',
+    links: [
+      { label: 'Partner with Us', href: '/wholesale' },
+      { label: 'LGS Program', href: '/wholesale' },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      { label: 'FAQ', href: '/faq' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Shipping & Returns', href: '/faq' },
+    ],
+  },
+  {
+    title: 'Connect',
+    links: [
+      { label: 'Instagram', href: '#' },
+      { label: 'Twitter', href: '#' },
+      { label: 'Discord', href: '#' },
+    ],
+  },
+];
+---
+
+<footer class="border-t border-hairline mt-auto">
+  <div class="container-guardian pt-16 pb-8">
+    <!-- Wordmark -->
+    <div class="mb-12">
+      <span class="font-display text-[120px] md:text-[200px] leading-none text-ink uppercase tracking-tight select-none">
+        GUARDIAN
+      </span>
+    </div>
+
+    <!-- Columns -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      {columns.map((col) => (
+        <div>
+          <h4 class="text-[16px] font-medium leading-[1.5] text-ink mb-4">{col.title}</h4>
+          <ul class="flex flex-col gap-2" role="list">
+            {col.links.map((link) => (
+              <li>
+                <a href={link.href} class="text-[14px] font-medium leading-[1.5] text-mute hover:text-ink transition-colors">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Divider -->
+    <hr class="border-hairline mb-6" />
+
+    <!-- Fine print -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+      <p class="text-[9px] font-medium leading-[1.75] text-mute">
+        &copy; {new Date().getFullYear()} Guardian Sleeves. All rights reserved.
+      </p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-[9px] font-medium leading-[1.75] text-mute hover:text-ink transition-colors">Privacy Policy</a>
+        <a href="#" class="text-[9px] font-medium leading-[1.75] text-mute hover:text-ink transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>

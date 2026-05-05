@@ -1,0 +1,52 @@
+---
+import Layout from '../components/Layout.astro';
+import UtilityBar from '../components/UtilityBar.astro';
+import PrimaryNav from '../components/PrimaryNav.astro';
+import MobileNav from '../components/MobileNav.astro';
+import WholesaleForm from '../components/WholesaleForm.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Wholesale — Guardian Sleeves" description="Stock Guardian Sleeves at your LGS. Tournament-tested product, fast restock, marketing support.">
+  <UtilityBar slot="utility-bar" />
+  <PrimaryNav slot="nav" activeSection="/wholesale" />
+  <MobileNav slot="nav" />
+
+  <!-- Hero -->
+  <section class="py-[var(--space-section)]">
+    <div class="container-guardian" data-animate="fade-up">
+      <h1 class="font-display text-[64px] md:text-[96px] leading-[0.9] uppercase text-ink max-w-4xl">STOCK GUARDIAN AT YOUR LGS</h1>
+      <p class="text-[16px] text-mute mt-6 max-w-xl">Your players already want tournament-grade sleeves at a fair price. Give them what they're looking for.</p>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="py-[var(--space-section)] bg-soft-cloud">
+    <div class="container-guardian">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-animate="fade-up">
+        <div class="flex flex-col">
+          <h3 class="text-[24px] font-medium leading-[1.2] text-ink mb-3">Tournament-tested product</h3>
+          <p class="text-[16px] text-mute leading-[1.5]">Archival polypropylene. Matte finish. Zero split-rate complaints. Your players keep coming back for more.</p>
+        </div>
+        <div class="flex flex-col">
+          <h3 class="text-[24px] font-medium leading-[1.2] text-ink mb-3">Fast restock</h3>
+          <p class="text-[16px] text-mute leading-[1.5]">Domestic fulfillment. Reorders ship within 48 hours. Never lose a sale to an empty peg hook.</p>
+        </div>
+        <div class="flex flex-col">
+          <h3 class="text-[24px] font-medium leading-[1.2] text-ink mb-3">Marketing support</h3>
+          <p class="text-[16px] text-mute leading-[1.5]">POP displays, social assets, and co-branded tournament materials included with your first order.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="py-[var(--space-section)]">
+    <div class="container-guardian max-w-2xl" data-animate="fade-up">
+      <h2 class="text-[24px] font-medium leading-[1.2] text-ink mb-8">Apply for wholesale access</h2>
+      <WholesaleForm />
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>

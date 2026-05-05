@@ -1,0 +1,45 @@
+---
+interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: className } = Astro.props;
+const repeatedText = `${text} · ${text} · ${text} · ${text} · `;
+---
+
+<div class:list={['overflow-hidden bg-ink py-4 select-none', className]} aria-hidden="true">
+  <div class="marquee-track flex whitespace-nowrap">
+    <span class="marquee-content font-display text-canvas text-[32px] md:text-[48px] leading-none uppercase tracking-tight px-4">
+      {repeatedText}
+    </span>
+    <span class="marquee-content font-display text-canvas text-[32px] md:text-[48px] leading-none uppercase tracking-tight px-4">
+      {repeatedText}
+    </span>
+  </div>
+</div>
+
+<style>
+  .marquee-track {
+    animation: marquee-scroll 60s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>

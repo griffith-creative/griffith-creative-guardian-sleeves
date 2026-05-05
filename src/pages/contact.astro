@@ -1,0 +1,48 @@
+---
+import Layout from '../components/Layout.astro';
+import UtilityBar from '../components/UtilityBar.astro';
+import PrimaryNav from '../components/PrimaryNav.astro';
+import MobileNav from '../components/MobileNav.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contact — Guardian Sleeves" description="Get in touch with Guardian Sleeves. Questions, wholesale inquiries, and support.">
+  <UtilityBar slot="utility-bar" />
+  <PrimaryNav slot="nav" />
+  <MobileNav slot="nav" />
+
+  <section class="py-[var(--space-section)]">
+    <div class="container-guardian">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <!-- Left: Brand statement -->
+        <div data-animate="fade-up">
+          <h1 class="font-display text-[64px] md:text-[96px] leading-[0.9] uppercase text-ink">GET IN TOUCH</h1>
+          <p class="text-[16px] text-mute mt-6 max-w-md">Questions about product, wholesale, or anything else — we read every message.</p>
+
+          <div class="mt-12 flex flex-col gap-4">
+            <div>
+              <p class="text-[14px] font-medium text-ink">Email</p>
+              <a href="mailto:hello@guardiansleeves.com" class="text-[16px] text-mute hover:text-ink transition-colors">hello@guardiansleeves.com</a>
+            </div>
+            <div>
+              <p class="text-[14px] font-medium text-ink">Social</p>
+              <div class="flex gap-4 mt-1">
+                <a href="#" class="text-[16px] text-mute hover:text-ink transition-colors">Instagram</a>
+                <a href="#" class="text-[16px] text-mute hover:text-ink transition-colors">Twitter</a>
+                <a href="#" class="text-[16px] text-mute hover:text-ink transition-colors">Discord</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div data-animate="fade-up">
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>

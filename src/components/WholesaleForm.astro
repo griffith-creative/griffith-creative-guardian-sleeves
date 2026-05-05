@@ -1,0 +1,84 @@
+---
+---
+
+<form class="flex flex-col gap-6" method="POST" action="/wholesale">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="flex flex-col gap-2">
+      <label for="ws-business" class="text-[14px] font-medium leading-[1.5] text-ink">Business Name</label>
+      <input
+        type="text"
+        id="ws-business"
+        name="business_name"
+        required
+        class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="ws-contact" class="text-[14px] font-medium leading-[1.5] text-ink">Contact Name</label>
+      <input
+        type="text"
+        id="ws-contact"
+        name="contact_name"
+        required
+        class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
+      />
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="flex flex-col gap-2">
+      <label for="ws-email" class="text-[14px] font-medium leading-[1.5] text-ink">Email</label>
+      <input
+        type="email"
+        id="ws-email"
+        name="email"
+        required
+        class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="ws-location" class="text-[14px] font-medium leading-[1.5] text-ink">Location</label>
+      <input
+        type="text"
+        id="ws-location"
+        name="location"
+        placeholder="City, State"
+        class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
+      />
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label for="ws-volume" class="text-[14px] font-medium leading-[1.5] text-ink">Monthly Volume Estimate</label>
+    <select
+      id="ws-volume"
+      name="volume"
+      class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors appearance-none"
+    >
+      <option value="">Select volume</option>
+      <option value="1-50">1–50 packs/month</option>
+      <option value="51-200">51–200 packs/month</option>
+      <option value="201-500">201–500 packs/month</option>
+      <option value="500+">500+ packs/month</option>
+    </select>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label for="ws-message" class="text-[14px] font-medium leading-[1.5] text-ink">Message</label>
+    <textarea
+      id="ws-message"
+      name="message"
+      rows="4"
+      class="w-full border border-hairline rounded-[18px] px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors resize-none"
+    ></textarea>
+  </div>
+
+  <button
+    type="submit"
+    class="self-start bg-ink text-canvas font-medium text-[16px] px-8 py-4 rounded-full hover:bg-charcoal transition-colors min-h-[48px]"
+  >
+    Submit Inquiry
+  </button>
+</form>

@@ -1,0 +1,35 @@
+---
+interface Props {
+  image?: string;
+  headline?: string;
+  cta: string;
+  ctaHref: string;
+  photoDescription?: string;
+}
+
+const { image, headline, cta, ctaHref, photoDescription = 'Lifestyle shot' } = Astro.props;
+---
+
+<section class="relative w-full aspect-[16/9] md:aspect-[21/9] bg-soft-cloud overflow-hidden flex items-end">
+  {image ? (
+    <img src={image} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+  ) : (
+    <div class="absolute inset-0 w-full h-full bg-charcoal flex items-center justify-center">
+      <span class="text-[12px] font-medium text-stone">PHOTO: {photoDescription}</span>
+    </div>
+  )}
+
+  <div class="relative z-10 container-guardian pb-10 md:pb-14">
+    {headline && (
+      <h2 class="font-display uppercase text-canvas text-[32px] md:text-[48px] lg:text-[64px] leading-[0.9] tracking-tight mb-6">
+        {headline}
+      </h2>
+    )}
+    <a
+      href={ctaHref}
+      class="inline-block bg-canvas text-ink font-medium text-[16px] px-6 py-3 rounded-full hover:bg-soft-cloud transition-colors"
+    >
+      {cta}
+    </a>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+---
+import Layout from '../components/Layout.astro';
+import UtilityBar from '../components/UtilityBar.astro';
+import PrimaryNav from '../components/PrimaryNav.astro';
+import MobileNav from '../components/MobileNav.astro';
+import Footer from '../components/Footer.astro';
+
+const faqs = [
+  {
+    question: 'What size cards do Guardian Sleeves fit?',
+    answer: 'Guardian Sleeves are standard size (66×91mm), fitting Magic: The Gathering, Pokemon TCG, Lorcana, and other standard-size trading card games.',
+  },
+  {
+    question: 'What material are they made from?',
+    answer: 'Archival-grade polypropylene. Acid-free, PVC-free, and designed for long-term card preservation without clouding or yellowing.',
+  },
+  {
+    question: 'Are Guardian Sleeves tournament legal?',
+    answer: 'Yes. Guardian Sleeves meet the requirements for sanctioned tournament play across major TCG organizations. The opaque matte back ensures no card markings are visible.',
+  },
+  {
+    question: 'What does "archival safe" mean?',
+    answer: 'Our polypropylene is chemically inert — it won\'t react with your cards over time. No acid migration, no plasticizer leaching, no clouding. Your cards stay exactly as they are.',
+  },
+  {
+    question: 'How many sleeves come in a pack?',
+    answer: '100 sleeves per pack. We include extras beyond the standard 75-card deck to account for wear and replacements.',
+  },
+  {
+    question: 'What is your shipping policy?',
+    answer: 'Free shipping on orders over $50. Standard shipping (3–5 business days) is available for all US orders. International shipping is coming soon.',
+  },
+  {
+    question: 'What is your return policy?',
+    answer: 'Unopened packs can be returned within 30 days of purchase for a full refund. Opened packs are eligible for exchange if defective.',
+  },
+  {
+    question: 'Do you offer wholesale pricing?',
+    answer: 'Yes. We partner with local game stores and distributors. Visit our wholesale page to apply for wholesale access and volume pricing.',
+  },
+];
+---
+
+<Layout title="FAQ — Guardian Sleeves" description="Frequently asked questions about Guardian Sleeves sizing, materials, shipping, and tournament legality.">
+  <UtilityBar slot="utility-bar" />
+  <PrimaryNav slot="nav" activeSection="/faq" />
+  <MobileNav slot="nav" />
+
+  <section class="py-[var(--space-section)]">
+    <div class="container-guardian max-w-3xl">
+      <div data-animate="fade-up">
+        <h1 class="font-display text-[64px] md:text-[96px] leading-[0.9] uppercase text-ink">FAQ</h1>
+        <p class="text-[16px] text-mute mt-4">Everything you need to know.</p>
+      </div>
+
+      <div class="mt-12 divide-y divide-hairline border-t border-hairline" data-animate="fade-up">
+        {faqs.map((faq) => (
+          <details class="py-6 group">
+            <summary class="flex items-center justify-between cursor-pointer list-none">
+              <span class="text-[16px] font-medium leading-[1.75] text-ink pr-4">{faq.question}</span>
+              <svg class="w-5 h-5 text-ink shrink-0 transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="pt-4 text-[16px] text-mute leading-[1.5]">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <div class="mt-12" data-animate="fade-up">
+        <p class="text-[16px] text-mute">Still have questions? <a href="/contact" class="text-ink underline font-medium">Get in touch</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>

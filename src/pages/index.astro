@@ -1,0 +1,118 @@
+---
+import Layout from '../components/Layout.astro';
+import UtilityBar from '../components/UtilityBar.astro';
+import PrimaryNav from '../components/PrimaryNav.astro';
+import MobileNav from '../components/MobileNav.astro';
+import CampaignHero from '../components/CampaignHero.astro';
+import SpecBlock from '../components/SpecBlock.astro';
+import LifestyleTile from '../components/LifestyleTile.astro';
+import Marquee from '../components/Marquee.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Guardian Sleeves — Built for the Shuffle" description="Tournament-grade TCG card sleeves. Standard size. No compromise.">
+  <script slot="json-ld" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Guardian Sleeves",
+    "url": "https://guardiansleeves.com",
+    "description": "Tournament-grade TCG card sleeves. Standard size. No compromise.",
+    "brand": { "@type": "Brand", "name": "Guardian Sleeves" }
+  })}></script>
+  <UtilityBar slot="utility-bar" />
+  <PrimaryNav slot="nav" activeSection="/" />
+  <MobileNav slot="nav" />
+
+  <!-- Hero -->
+  <CampaignHero
+    headline="BUILT FOR THE SHUFFLE"
+    cta="Shop Black"
+    ctaHref="https://guardiansleeves.com/products/guardian-sleeves-black?variant=51129415565607"
+    headlineColor="canvas"
+  />
+
+  <!-- Specs -->
+  <section class="py-[var(--space-section)]" data-animate="fade-up">
+    <div class="container-guardian">
+      <SpecBlock specs={[
+        { label: 'Size', value: '66×91mm' },
+        { label: 'Material', value: 'Archival Polypropylene' },
+        { label: 'Finish', value: 'Matte' },
+        { label: 'Pack', value: '100 Sleeves' },
+      ]} />
+    </div>
+  </section>
+
+  <!-- Why Guardian — Stats -->
+  <section class="py-[var(--space-section)] bg-soft-cloud" data-animate="fade-up">
+    <div class="container-guardian">
+      <h2 class="font-display text-[48px] md:text-[64px] leading-[0.9] uppercase text-ink mb-12">WHY GUARDIAN</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex flex-col">
+          <span class="font-display text-[64px] md:text-[80px] leading-none text-ink">
+            <span data-count-up="0.001" data-count-suffix="s" data-count-prefix="">0</span>
+          </span>
+          <p class="text-[14px] font-medium text-mute mt-2">Shuffle drag</p>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display text-[64px] md:text-[80px] leading-none text-ink">
+            <span data-count-up="100" data-count-suffix="%">0</span>
+          </span>
+          <p class="text-[14px] font-medium text-mute mt-2">Archival safe</p>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display text-[64px] md:text-[80px] leading-none text-ink">
+            <span data-count-up="4" data-count-suffix=" TCGs">0</span>
+          </span>
+          <p class="text-[14px] font-medium text-mute mt-2">Supported</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lifestyle Tile -->
+  <LifestyleTile
+    headline="TESTED ON THE TABLE"
+    cta="View Sleeves"
+    ctaHref="/products"
+    photoDescription="Play-mat shot — cards mid-shuffle on tournament table"
+  />
+
+  <!-- Marquee -->
+  <Marquee text="TOURNAMENT TESTED · SHUFFLE READY · ARCHIVE GRADE · BUILT FOR THE SHUFFLE" />
+
+  <!-- Wholesale Callout -->
+  <section class="py-[var(--space-section)]" data-animate="fade-up">
+    <div class="container-guardian text-center">
+      <h2 class="font-display text-[48px] md:text-[64px] leading-[0.9] uppercase text-ink mb-6">STOCK GUARDIAN AT YOUR LGS</h2>
+      <p class="text-[16px] text-mute max-w-md mx-auto mb-8">Tournament-tested product your players already want. Fast restock. Marketing support included.</p>
+      <a href="/wholesale" class="inline-block bg-ink text-canvas font-medium text-[16px] px-8 py-4 rounded-full hover:bg-charcoal transition-colors">
+        Become a Partner
+      </a>
+    </div>
+  </section>
+
+  <!-- Email Capture -->
+  <section class="py-[var(--space-section)] bg-soft-cloud" data-animate="fade-up">
+    <div class="container-guardian max-w-lg mx-auto text-center">
+      <h2 class="text-[24px] font-medium leading-[1.2] text-ink mb-2">Get drops first.</h2>
+      <p class="text-[14px] font-medium text-mute mb-6">New colors. Restocks. No spam.</p>
+      <form class="flex gap-3">
+        <label for="email-capture" class="sr-only">Email address</label>
+        <input
+          type="email"
+          id="email-capture"
+          name="email"
+          placeholder="your@email.com"
+          required
+          class="flex-1 border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
+        />
+        <button type="submit" class="bg-ink text-canvas font-medium text-[16px] px-6 py-3 rounded-full hover:bg-charcoal transition-colors whitespace-nowrap">
+          Sign Up
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
