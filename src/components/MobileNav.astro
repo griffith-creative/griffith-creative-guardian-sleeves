@@ -8,7 +8,7 @@ const navLinks = [
 ];
 ---
 
-<div id="mobile-nav" class="fixed inset-0 z-50 pointer-events-none" aria-hidden="true">
+<div id="mobile-nav" class="fixed inset-0 z-50 pointer-events-none" inert>
   <!-- Backdrop -->
   <div class="absolute inset-0 bg-ink/50 opacity-0 transition-opacity duration-300" data-mobile-backdrop></div>
 
@@ -61,8 +61,8 @@ const navLinks = [
 
     function open() {
       if (!mobileNav || !backdrop || !drawer) return;
+      mobileNav.removeAttribute('inert');
       mobileNav.classList.remove('pointer-events-none');
-      mobileNav.setAttribute('aria-hidden', 'false');
       backdrop.classList.remove('opacity-0');
       backdrop.classList.add('opacity-100');
       drawer.classList.remove('-translate-x-full');
@@ -72,8 +72,8 @@ const navLinks = [
 
     function close() {
       if (!mobileNav || !backdrop || !drawer) return;
+      mobileNav.setAttribute('inert', '');
       mobileNav.classList.add('pointer-events-none');
-      mobileNav.setAttribute('aria-hidden', 'true');
       backdrop.classList.add('opacity-0');
       backdrop.classList.remove('opacity-100');
       drawer.classList.add('-translate-x-full');

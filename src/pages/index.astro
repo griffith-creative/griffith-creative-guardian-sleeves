@@ -8,6 +8,9 @@ import SpecBlock from '../components/SpecBlock.astro';
 import LifestyleTile from '../components/LifestyleTile.astro';
 import Marquee from '../components/Marquee.astro';
 import Footer from '../components/Footer.astro';
+
+import heroImage from '../assets/images/hero-cards-fanned.png';
+import lifestyleImage from '../assets/images/lifestyle-sleeves-stack.png';
 ---
 
 <Layout title="Guardian Sleeves — Built for the Shuffle" description="Tournament-grade TCG card sleeves. Standard size. No compromise.">
@@ -25,7 +28,7 @@ import Footer from '../components/Footer.astro';
 
   <!-- Hero -->
   <CampaignHero
-    image="/images/hero-cards-fanned.png"
+    image={heroImage}
     imageAlt="Trading card game cards fanned across a dark slate surface in Guardian Sleeves"
     headline="BUILT FOR THE SHUFFLE"
     cta="Shop Black"
@@ -74,7 +77,7 @@ import Footer from '../components/Footer.astro';
 
   <!-- Lifestyle Tile -->
   <LifestyleTile
-    image="/images/lifestyle-sleeves-stack.png"
+    image={lifestyleImage}
     headline="TESTED ON THE TABLE"
     cta="View Sleeves"
     ctaHref="/products"

@@ -5,6 +5,9 @@ import PrimaryNav from '../../components/PrimaryNav.astro';
 import MobileNav from '../../components/MobileNav.astro';
 import SpecBlock from '../../components/SpecBlock.astro';
 import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+
+import productImage from '../../assets/images/guardian-black-box.png';
 ---
 
 <Layout title="Guardian Black — Guardian Sleeves" description="Guardian Sleeves Black. 66×91mm. Archival polypropylene. Matte finish. 100 per pack. $10.99.">
@@ -32,7 +35,17 @@ import Footer from '../../components/Footer.astro';
         <!-- Image Gallery -->
         <div data-animate="fade-up">
           <div class="aspect-square bg-soft-cloud flex items-center justify-center">
-            <img src="/images/guardian-black-box.png" alt="Guardian Sleeves Black — product box 3/4 angle" width="800" height="800" class="w-full h-full object-contain" loading="eager" decoding="async" />
+            <Image
+              src={productImage}
+              alt="Guardian Sleeves Black — product box 3/4 angle"
+              widths={[480, 640, 800]}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              format="avif"
+              quality={80}
+              class="w-full h-full object-contain"
+              loading="eager"
+              decoding="async"
+            />
           </div>
         </div>
 

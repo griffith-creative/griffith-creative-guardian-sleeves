@@ -5,6 +5,8 @@ import PrimaryNav from '../../components/PrimaryNav.astro';
 import MobileNav from '../../components/MobileNav.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import Footer from '../../components/Footer.astro';
+
+import productImage from '../../assets/images/guardian-black-box.png';
 ---
 
 <Layout title="Sleeves — Guardian Sleeves" description="Standard size tournament-grade card sleeves. Archival polypropylene. Matte finish. 100 per pack.">
@@ -25,7 +27,7 @@ import Footer from '../../components/Footer.astro';
           subtitle="Standard Size · Matte"
           price="$10.99"
           href="/products/guardian-black"
-          image="/images/guardian-black-box.png"
+          image={productImage}
           badge="New"
         />
       </div>

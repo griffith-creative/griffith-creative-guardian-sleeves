@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  image?: string;
+  image?: ImageMetadata;
   headline?: string;
   cta: string;
   ctaHref: string;
@@ -12,7 +15,17 @@ const { image, headline, cta, ctaHref, photoDescription = 'Lifestyle shot' } = A
 
 <section class="relative w-full aspect-[16/9] md:aspect-[21/9] bg-soft-cloud overflow-hidden flex items-end">
   {image ? (
-    <img src={image} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+    <Image
+      src={image}
+      alt={headline || photoDescription}
+      widths={[640, 1024, 1440, 1920]}
+      sizes="100vw"
+      format="avif"
+      quality={80}
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="lazy"
+      decoding="async"
+    />
   ) : (
     <div class="absolute inset-0 w-full h-full bg-charcoal flex items-center justify-center">
       <span class="text-[12px] font-medium text-stone">PHOTO: {photoDescription}</span>
