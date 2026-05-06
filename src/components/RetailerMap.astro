@@ -1,0 +1,165 @@
+---
+import type { Retailer } from '../data/retailers';
+
+interface Props {
+  retailers: Retailer[];
+}
+
+const { retailers } = Astro.props;
+---
+
+<div class="container-guardian">
+  <div
+    id="retailer-map"
+    class="w-full h-[400px] md:h-[520px] bg-soft-cloud"
+    style={`border-radius: var(--rounded-sm); border: 1px solid var(--hairline-soft);`}
+    role="application"
+    aria-label="Map of retailers carrying Guardian Sleeves"
+  ></div>
+</div>
+
+<script define:vars={{ retailers }}>
+  // Stash retailer data on window for the async loader
+  window.__GUARDIAN_RETAILERS = retailers;
+</script>
+
+<script>
+  function initMap() {
+    const mapContainer = document.getElementById('retailer-map');
+    if (!mapContainer) return;
+
+    // Avoid re-initializing on Astro page transitions
+    if (mapContainer.dataset.initialized === 'true') return;
+
+    const token = import.meta.env.PUBLIC_MAPBOX_TOKEN;
+    const style = import.meta.env.PUBLIC_MAPBOX_STYLE || 'mapbox://styles/mapbox/light-v11';
+
+    if (!token) {
+      console.warn('PUBLIC_MAPBOX_TOKEN is not set. Map will not render.');
+      return;
+    }
+
+    // Lazy-load Mapbox GL JS
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css';
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = 'https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js';
+    script.onload = () => {
+      const mapboxgl = (window as any).mapboxgl;
+      mapboxgl.accessToken = token;
+
+      const retailers = (window as any).__GUARDIAN_RETAILERS || [];
+
+      const map = new mapboxgl.Map({
+        container: 'retailer-map',
+        style,
+        dragRotate: false,
+        pitchWithRotate: false,
+        touchPitch: false,
+      });
+
+      // Minimal zoom controls
+      map.addControl(
+        new mapboxgl.NavigationControl({ showCompass: false }),
+        'top-right'
+      );
+
+      // Platform detection for directions links
+      const isApplePlatform =
+        /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent) &&
+        /Safari/i.test(navigator.userAgent) &&
+        !/Chrome|CriOS|FxiOS|EdgiOS/i.test(navigator.userAgent);
+
+      // Compute bounds from retailer data
+      const bounds = new mapboxgl.LngLatBounds();
+
+      retailers.forEach((r: any) => {
+        bounds.extend([r.lng, r.lat]);
+
+        // Custom HTML marker — small filled circle
+        const el = document.createElement('div');
+        el.style.cssText = `
+          width: 14px;
+          height: 14px;
+          background: var(--ink);
+          border: 2px solid #ffffff;
+          border-radius: 50%;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+        `;
+
+        const fullAddress = `${r.address}, ${r.city}, ${r.state} ${r.postalCode}`;
+        const directionsUrl = isApplePlatform
+          ? `https://maps.apple.com/?daddr=${r.lat},${r.lng}`
+          : `https://www.google.com/maps/dir/?api=1&destination=${r.lat},${r.lng}`;
+
+        const popup = new mapboxgl.Popup({
+          offset: 12,
+          closeButton: false,
+          maxWidth: '240px',
+        }).setHTML(`
+          <div style="font-family: 'Inter', system-ui, sans-serif; padding: 4px 0;">
+            <p style="font-size: 14px; font-weight: 500; color: #0a0a0a; margin: 0 0 4px;">${r.name}</p>
+            <p style="font-size: 13px; font-weight: 400; color: #707072; margin: 0 0 6px; line-height: 1.4;">${fullAddress}</p>
+            <a href="${directionsUrl}" target="_blank" rel="noopener noreferrer"
+               style="font-size: 13px; font-weight: 500; color: #0a0a0a; text-decoration: underline; text-underline-offset: 2px;">
+              Get directions
+            </a>
+          </div>
+        `);
+
+        new mapboxgl.Marker({ element: el })
+          .setLngLat([r.lng, r.lat])
+          .setPopup(popup)
+          .addTo(map);
+      });
+
+      // Fit map to all markers with padding
+      if (retailers.length > 0) {
+        map.fitBounds(bounds, {
+          padding: { top: 60, bottom: 60, left: 60, right: 60 },
+          maxZoom: 13,
+        });
+      }
+
+      mapContainer.dataset.initialized = 'true';
+
+      // TODO: Add marker clustering when retailer count exceeds ~50
+    };
+
+    document.head.appendChild(script);
+  }
+
+  // Run on load and on Astro page transitions
+  initMap();
+  document.addEventListener('astro:after-swap', initMap);
+</script>
+
+<style is:global>
+  /* Minimal Mapbox control styling */
+  .mapboxgl-ctrl-group {
+    border-radius: 8px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid var(--hairline-soft) !important;
+  }
+
+  .mapboxgl-ctrl-group button {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  /* Popup styling */
+  .mapboxgl-popup-content {
+    border-radius: 12px !important;
+    padding: 12px 14px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+    border: 1px solid var(--hairline-soft) !important;
+  }
+
+  .mapboxgl-popup-tip {
+    display: none !important;
+  }
+</style>

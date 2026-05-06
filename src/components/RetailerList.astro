@@ -1,0 +1,22 @@
+---
+import type { Retailer } from '../data/retailers';
+import RetailerCard from './RetailerCard.astro';
+
+interface Props {
+  retailers: Retailer[];
+}
+
+const { retailers } = Astro.props;
+---
+
+<section class="py-[var(--space-section)]">
+  <div class="container-guardian">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0 divide-y divide-hairline-soft md:divide-y-0">
+      {retailers.map((retailer) => (
+        <div class="md:border-b md:border-hairline-soft">
+          <RetailerCard retailer={retailer} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
