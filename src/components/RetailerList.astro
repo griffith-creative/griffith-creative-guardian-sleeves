@@ -9,13 +9,14 @@ interface Props {
 const { retailers } = Astro.props;
 ---
 
-<section class="py-[var(--space-section)]">
+<section class="py-[var(--space-section)] bg-soft-cloud">
   <div class="container-guardian">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0 divide-y divide-hairline-soft md:divide-y-0">
+    <h2 class="font-display text-[32px] md:text-[48px] leading-[0.9] uppercase text-ink mb-8">
+      All locations
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {retailers.map((retailer) => (
-        <div class="md:border-b md:border-hairline-soft">
-          <RetailerCard retailer={retailer} />
-        </div>
+        <RetailerCard retailer={retailer} />
       ))}
     </div>
   </div>

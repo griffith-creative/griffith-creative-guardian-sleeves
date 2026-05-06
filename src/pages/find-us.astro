@@ -13,19 +13,19 @@ import { retailers } from '../data/retailers';
   <PrimaryNav slot="nav" activeSection="/find-us" />
 
   <!-- Hero -->
-  <section class="pt-[var(--space-section)] pb-8 md:pb-12">
+  <section class="bg-ink pt-[var(--space-section)] pb-[var(--space-section)]">
     <div class="container-guardian">
-      <h1 class="font-display text-[48px] md:text-[64px] lg:text-[96px] leading-[0.9] uppercase text-ink">
+      <h1 class="font-display text-[48px] md:text-[64px] lg:text-[96px] leading-[0.9] uppercase text-canvas">
         Find Guardian Sleeves near you.
       </h1>
-      <p class="text-[16px] md:text-[18px] font-normal leading-[1.5] text-mute mt-4">
+      <p class="text-[16px] md:text-[18px] font-normal leading-[1.5] text-stone mt-4">
         Card shops carrying Guardian, mapped.
       </p>
     </div>
   </section>
 
   <!-- Map -->
-  <section class="pb-[var(--space-section)]">
+  <section class="py-[var(--space-section)]">
     <RetailerMap retailers={retailers} />
   </section>
 

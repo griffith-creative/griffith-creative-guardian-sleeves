@@ -9,21 +9,26 @@ const { retailer } = Astro.props;
 const fullAddress = `${retailer.address}, ${retailer.city}, ${retailer.state} ${retailer.postalCode}`;
 ---
 
-<article class="py-5">
+<article
+  class="bg-canvas p-5 transition-shadow hover:shadow-md"
+  style={`border-radius: var(--rounded-sm); border: 1px solid var(--hairline-soft);`}
+>
   <h3 class="text-[16px] font-medium leading-[1.5] text-ink">{retailer.name}</h3>
-  <address class="not-italic text-[14px] font-normal leading-[1.5] text-mute mt-1">
+  <address class="not-italic text-[14px] font-normal leading-[1.5] text-ash mt-1">
     {retailer.address}<br />
     {retailer.city}, {retailer.state} {retailer.postalCode}
   </address>
   <a
     href="#"
-    class="inline-block mt-2 text-[14px] font-medium leading-[1.5] text-ink underline underline-offset-2 hover:text-charcoal transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+    class="inline-flex items-center gap-1 mt-3 text-[14px] font-medium leading-[1.5] text-ink transition-colors hover:text-charcoal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+    style="border-bottom: 1.5px solid var(--ink); padding-bottom: 1px;"
     data-directions
     data-lat={retailer.lat}
     data-lng={retailer.lng}
     data-address={fullAddress}
   >
     Get directions
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
   </a>
 </article>
 
