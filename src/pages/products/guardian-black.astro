@@ -2,7 +2,6 @@
 import Layout from '../../components/Layout.astro';
 import UtilityBar from '../../components/UtilityBar.astro';
 import PrimaryNav from '../../components/PrimaryNav.astro';
-import MobileNav from '../../components/MobileNav.astro';
 import SpecBlock from '../../components/SpecBlock.astro';
 import Footer from '../../components/Footer.astro';
 import { Image } from 'astro:assets';
@@ -27,7 +26,6 @@ import productImage from '../../assets/images/guardian-black-box.png';
   })}></script>
   <UtilityBar slot="utility-bar" />
   <PrimaryNav slot="nav" activeSection="/products" />
-  <MobileNav slot="nav" />
 
   <section class="py-[var(--space-section)]">
     <div class="container-guardian">

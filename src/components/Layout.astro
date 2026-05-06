@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import MobileBottomNav from './MobileBottomNav.astro';
 
 interface Props {
   title: string;
@@ -61,11 +62,13 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro
       <slot name="nav" />
     </header>
 
-    <main id="main-content" class="flex-1">
+    <main id="main-content" class="flex-1 main-with-bottom-nav">
       <slot />
     </main>
 
     <slot name="footer" />
+
+    <MobileBottomNav />
 
     <!-- Animation System -->
     <script>

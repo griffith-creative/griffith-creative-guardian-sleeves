@@ -104,3 +104,14 @@ body {
     padding-inline: 80px;
   }
 }
+
+/* ─── Mobile Bottom Nav Clearance ─── */
+.main-with-bottom-nav {
+  padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+  .main-with-bottom-nav {
+    padding-bottom: 0;
+  }
+}

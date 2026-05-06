@@ -1,0 +1,112 @@
+---
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  {
+    label: 'Sleeves',
+    href: '/products',
+    icon: 'layers',
+  },
+  {
+    label: 'Wholesale',
+    href: '/wholesale',
+    icon: 'building',
+  },
+  {
+    label: 'Find Us',
+    href: '/find-us',
+    icon: 'map-pin',
+  },
+  {
+    label: 'About',
+    href: '/about',
+    icon: 'info',
+  },
+  {
+    label: 'FAQ',
+    href: '/faq',
+    icon: 'help-circle',
+  },
+];
+
+function isActive(href: string): boolean {
+  const clean = pathname.replace(/\/$/, '') || '/';
+  const target = href.replace(/\/$/, '') || '/';
+  return clean === target || clean.startsWith(target + '/');
+}
+---
+
+<nav
+  class="fixed bottom-0 left-0 right-0 z-40 bg-canvas md:hidden"
+  style="box-shadow: 0 -1px 0 var(--hairline-soft); padding-bottom: env(safe-area-inset-bottom, 0px);"
+  aria-label="Mobile navigation"
+>
+  <ul class="flex items-center justify-around h-14" role="list">
+    {navItems.map((item) => {
+      const active = isActive(item.href);
+      return (
+        <li class="flex-1">
+          <a
+            href={item.href}
+            class:list={[
+              'flex flex-col items-center justify-center gap-0.5 h-14 transition-colors',
+              active ? 'text-ink' : 'text-mute',
+            ]}
+            aria-current={active ? 'page' : undefined}
+          >
+            <span class="w-5 h-5" aria-hidden="true">
+              {item.icon === 'layers' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={active ? '2.5' : '2'} stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                  <polyline points="2 17 12 22 22 17" />
+                  <polyline points="2 12 12 17 22 12" />
+                </svg>
+              )}
+              {item.icon === 'building' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={active ? '2.5' : '2'} stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+                  <path d="M9 22v-4h6v4" />
+                  <line x1="8" y1="6" x2="8" y2="6.01" />
+                  <line x1="16" y1="6" x2="16" y2="6.01" />
+                  <line x1="12" y1="6" x2="12" y2="6.01" />
+                  <line x1="8" y1="10" x2="8" y2="10.01" />
+                  <line x1="16" y1="10" x2="16" y2="10.01" />
+                  <line x1="12" y1="10" x2="12" y2="10.01" />
+                  <line x1="8" y1="14" x2="8" y2="14.01" />
+                  <line x1="16" y1="14" x2="16" y2="14.01" />
+                  <line x1="12" y1="14" x2="12" y2="14.01" />
+                </svg>
+              )}
+              {item.icon === 'map-pin' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={active ? '2.5' : '2'} stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              )}
+              {item.icon === 'info' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={active ? '2.5' : '2'} stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+              )}
+              {item.icon === 'help-circle' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={active ? '2.5' : '2'} stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+              )}
+            </span>
+            <span class:list={[
+              'text-[10px] leading-none',
+              active ? 'font-medium' : 'font-normal',
+            ]}>
+              {item.label}
+            </span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</nav>

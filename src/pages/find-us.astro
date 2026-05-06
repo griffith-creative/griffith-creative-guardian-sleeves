@@ -2,7 +2,6 @@
 import Layout from '../components/Layout.astro';
 import UtilityBar from '../components/UtilityBar.astro';
 import PrimaryNav from '../components/PrimaryNav.astro';
-import MobileNav from '../components/MobileNav.astro';
 import RetailerMap from '../components/RetailerMap.astro';
 import RetailerList from '../components/RetailerList.astro';
 import Footer from '../components/Footer.astro';
@@ -12,7 +11,6 @@ import { retailers } from '../data/retailers';
 <Layout title="Find Us — Guardian Sleeves" description="Find card shops carrying Guardian Sleeves near you. Retailer locations in the Los Angeles area.">
   <UtilityBar slot="utility-bar" />
   <PrimaryNav slot="nav" activeSection="/find-us" />
-  <MobileNav slot="nav" />
 
   <!-- Hero -->
   <section class="pt-[var(--space-section)] pb-8 md:pb-12">
