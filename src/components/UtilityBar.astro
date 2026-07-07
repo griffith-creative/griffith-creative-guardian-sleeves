@@ -1,12 +1,45 @@
 ---
+const messages = [
+  'Free shipping on orders over $50',
+  'Tournament-grade card protection',
+  'Wholesale pricing available',
+];
+
+const track = messages.join(' · ') + ' · ';
 ---
 
-<div class="bg-soft-cloud h-9 flex items-center">
-  <div class="container-guardian flex items-center justify-end gap-4">
-    <span class="hidden sm:inline text-[12px] font-medium leading-[1.5] text-ink">Free shipping on orders over $50</span>
-    <span class="hidden sm:inline text-[12px] font-medium leading-[1.5] text-stone" aria-hidden="true">·</span>
-    <a href="/wholesale" class="text-[12px] font-medium leading-[1.5] text-ink hover:underline">Wholesale</a>
-    <span class="text-[12px] font-medium leading-[1.5] text-stone" aria-hidden="true">·</span>
-    <a href="/faq" class="text-[12px] font-medium leading-[1.5] text-ink hover:underline">Help</a>
+<div class="bg-ink h-9 flex items-center overflow-hidden select-none" aria-hidden="true">
+  <div class="utility-marquee-track flex whitespace-nowrap">
+    <span class="utility-marquee-content text-[11px] font-medium tracking-[0.08em] uppercase text-canvas/70 px-2">
+      {track}
+    </span>
+    <span class="utility-marquee-content text-[11px] font-medium tracking-[0.08em] uppercase text-canvas/70 px-2">
+      {track}
+    </span>
   </div>
 </div>
+
+<style>
+  .utility-marquee-track {
+    animation: utility-scroll 30s linear infinite;
+  }
+
+  .utility-marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes utility-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .utility-marquee-track {
+      animation: none;
+    }
+  }
+</style>

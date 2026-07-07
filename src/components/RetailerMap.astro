@@ -56,6 +56,8 @@ const { retailers } = Astro.props;
         dragRotate: false,
         pitchWithRotate: false,
         touchPitch: false,
+        attributionControl: false,
+        logoPosition: 'bottom-left',
       });
 
       map.addControl(
@@ -181,6 +183,11 @@ const { retailers } = Astro.props;
   }
 
   .mapboxgl-popup-tip {
+    display: none !important;
+  }
+
+  /* Hide Mapbox logo for preview — remove if keeping Mapbox */
+  .mapboxgl-ctrl-logo {
     display: none !important;
   }
 </style>
