@@ -42,6 +42,7 @@
   --color-hairline: var(--hairline);
   --color-hairline-soft: var(--hairline-soft);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-success: var(--success);
   --color-warning: var(--warning);
 
