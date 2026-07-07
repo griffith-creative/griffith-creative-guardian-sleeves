@@ -1,4 +1,7 @@
 ---
+import HeadMark from '../assets/brand/guardian-head.svg';
+import Wordmark from '../assets/brand/guardian-wordmark.svg';
+
 interface Props {
   activeSection?: string;
 }
@@ -16,8 +19,9 @@ const navLinks = [
 <nav class="sticky top-0 z-40 bg-canvas h-16 flex items-center" style="box-shadow: var(--elevation-inset);" aria-label="Primary navigation">
   <div class="container-guardian flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="font-display text-[28px] leading-none tracking-tight text-ink uppercase">
-      GUARDIAN
+    <a href="/" aria-label="Guardian — Home" class="flex items-center gap-2.5 text-ink">
+      <HeadMark aria-hidden="true" class="h-8 w-auto" />
+      <Wordmark aria-hidden="true" class="h-[15px] w-auto max-[380px]:hidden" />
     </a>
 
     <!-- Desktop Nav -->
