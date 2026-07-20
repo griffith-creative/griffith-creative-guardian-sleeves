@@ -66,7 +66,7 @@ export function getCurrent() {
 }
 
 // Load the saved cart (if any). A null result means no cart or a stale one
-// (e.g. checkout already completed) — we clear the id so a fresh cart is made.
+// (e.g. checkout already completed) - we clear the id so a fresh cart is made.
 export async function loadCart() {
   const id = getCartId();
   if (!id || !isConfigured()) { emit(null); return null; }
@@ -90,7 +90,7 @@ export async function addToCart(variantId, quantity = 1) {
     try {
       cart = unwrap((await storefront(ADD, { cartId: id, lines: [{ merchandiseId: variantId, quantity }] })).cartLinesAdd);
     } catch {
-      // Saved cart is stale (completed/expired) — start a fresh one.
+      // Saved cart is stale (completed/expired) - start a fresh one.
       setCartId(null);
       cart = unwrap((await storefront(CREATE, { lines: [{ merchandiseId: variantId, quantity }] })).cartCreate);
     }

@@ -14,7 +14,7 @@ export const SHOPIFY_STOREFRONT_TOKEN = 'b8367d54e68f8ad30ad0e816b09187dc';
 // The product this site sells, by Shopify handle.
 export const GUARDIAN_BLACK_HANDLE = 'guardian-sleeves-black';
 
-// Fallback product data — rendered instantly for SEO / no-JS, then refreshed
+// Fallback product data - rendered instantly for SEO / no-JS, then refreshed
 // live from Shopify on the client so Shopify admin edits reflect on the site.
 export const GUARDIAN_BLACK_FALLBACK = {
   title: 'Guardian Sleeves Black',

@@ -1,7 +1,7 @@
 // Shopify Storefront API client.
 // Uses the Cart API (the Checkout API was removed April 2025): create a cart
 // with a line, then hand off to Shopify's hosted checkout via cart.checkoutUrl.
-// Works in the browser — the Storefront access token is public by design.
+// Works in the browser - the Storefront access token is public by design.
 
 import {
   SHOPIFY_DOMAIN,

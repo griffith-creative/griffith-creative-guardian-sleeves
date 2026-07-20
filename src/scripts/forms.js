@@ -58,7 +58,7 @@ export function initAjaxForm(formId, successMessage) {
         setStatus(detail || 'Something went wrong sending your message. Please try again or email us directly.', false);
       }
     } catch {
-      setStatus('Network error — please check your connection and try again.', false);
+      setStatus('Network error. Please check your connection and try again.', false);
     } finally {
       if (button) {
         button.disabled = false;

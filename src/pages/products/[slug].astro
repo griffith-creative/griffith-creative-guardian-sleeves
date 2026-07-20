@@ -33,7 +33,7 @@ if (colorway.live) {
     price: colorway.price,
     priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
-    url: `https://guardiansleeves.com/products/${colorway.handle}`,
+    url: `https://guardiansleeves.com/products/${colorway.slug}`,
   };
 }
 
@@ -42,7 +42,7 @@ const metaDescription = colorway.live
   : `Guardian Sleeves ${colorway.colorName}. 66×91.5mm. Archival polypropylene. Matte finish. 120 per pack. Coming soon.`;
 ---
 
-<Layout title={`${colorway.name} — Guardian Sleeves`} description={metaDescription}>
+<Layout title={`${colorway.name} | Guardian Sleeves`} description={metaDescription}>
   <script slot="json-ld" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   <UtilityBar slot="utility-bar" />
   <PrimaryNav slot="nav" activeSection="/products" />
@@ -154,7 +154,7 @@ const metaDescription = colorway.live
             </div>
           </div>
 
-          <!-- Buy Button — Storefront Cart API checkout (see scripts/shop.js).
+          <!-- Buy Button - Storefront Cart API checkout (see scripts/shop.js).
                Coming-soon colorways ship disabled; shop.js probes the handle
                and enables the button if the product goes live in Shopify. -->
           <div class="mt-6">
@@ -200,18 +200,6 @@ const metaDescription = colorway.live
               </summary>
               <div class="pt-4 text-[16px] text-mute leading-[1.5]">
                 <p>Free shipping on orders over $50. Standard shipping 3–5 business days. Returns accepted within 30 days of purchase for unopened product.</p>
-              </div>
-            </details>
-
-            <details class="py-6 group">
-              <summary class="flex items-center justify-between cursor-pointer list-none">
-                <span class="text-[16px] font-medium text-ink">Reviews</span>
-                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </summary>
-              <div class="pt-4 text-[16px] text-mute leading-[1.5]">
-                <p>Reviews coming soon.</p>
               </div>
             </details>
           </div>

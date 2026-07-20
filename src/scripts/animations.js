@@ -1,5 +1,5 @@
 /**
- * Guardian Sleeves — Animation System
+ * Guardian Sleeves - Animation System
  * All animations respect prefers-reduced-motion: reduce
  */
 

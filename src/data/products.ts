@@ -1,6 +1,6 @@
 // Guardian Sleeves colorway catalog.
 // `live` marks colorways that exist as Shopify products today. Coming-soon
-// colorways still carry their expected handle — the PDP probes it on load and
+// colorways still carry their expected handle - the PDP probes it on load and
 // enables Add to Cart automatically once the product appears in Shopify,
 // no redeploy needed. When Zachary adds a color, verify the handle matches.
 import { GUARDIAN_BLACK_HANDLE, GUARDIAN_BLACK_FALLBACK } from '../consts';

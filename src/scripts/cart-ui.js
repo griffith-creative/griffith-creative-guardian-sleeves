@@ -143,5 +143,5 @@ if (!window.__cartUIBound) {
   loadCart();
 }
 
-// Nav (with its badge) is re-rendered on view transitions — repaint from cache.
+// Nav (with its badge) is re-rendered on view transitions - repaint from cache.
 document.addEventListener('astro:after-swap', () => render(getCurrent()));

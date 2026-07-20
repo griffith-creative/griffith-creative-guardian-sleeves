@@ -32,7 +32,7 @@ const { name, subtitle, price, href, image, badge } = Astro.props;
         />
       ) : (
         <div class="w-full h-full flex items-center justify-center">
-          <span class="text-[12px] font-medium text-stone">PHOTO: Product — {name}</span>
+          <span class="text-[12px] font-medium text-stone">PHOTO: Product, {name}</span>
         </div>
       )}
       {badge && (

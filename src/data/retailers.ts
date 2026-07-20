@@ -2,7 +2,7 @@
  * Retailer data for the Find Us page.
  *
  * The Mapbox token used on the map is read from `import.meta.env.PUBLIC_MAPBOX_TOKEN`.
- * That token is a development-only key — rotate it and add URL restrictions in
+ * That token is a development-only key - rotate it and add URL restrictions in
  * the Mapbox dashboard before public launch.
  */
 
@@ -58,7 +58,7 @@ export const retailers: Retailer[] = [
   },
   {
     id: 'rizo-murrieta',
-    name: 'Rizo Sports & TCG — Murrieta',
+    name: 'Rizo Sports & TCG - Murrieta',
     address: '40165 Murrieta Hot Springs Rd Unit B',
     city: 'Murrieta',
     state: 'CA',
@@ -70,7 +70,7 @@ export const retailers: Retailer[] = [
   },
   {
     id: 'rizo-riverside',
-    name: 'Rizo Sports & TCG — Riverside',
+    name: 'Rizo Sports & TCG - Riverside',
     address: '5225 Canyon Crest Dr Ste 16',
     city: 'Riverside',
     state: 'CA',

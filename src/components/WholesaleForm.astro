@@ -2,9 +2,9 @@
 import { FORMSPREE_ENDPOINT } from '../consts';
 ---
 
-<!-- AJAX submit to Formspree — Formspree captures every named field and emails them to the store. -->
+<!-- AJAX submit to Formspree - Formspree captures every named field and emails them to the store. -->
 <form id="wholesale-form" class="flex flex-col gap-6" data-endpoint={FORMSPREE_ENDPOINT} novalidate>
-  <input type="hidden" name="_subject" value="New wholesale inquiry — Guardian Sleeves" />
+  <input type="hidden" name="_subject" value="New wholesale inquiry | Guardian Sleeves" />
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="flex flex-col gap-2">
@@ -96,7 +96,7 @@ import { FORMSPREE_ENDPOINT } from '../consts';
 
 <script>
   import { initAjaxForm } from '../scripts/forms.js';
-  const msg = 'Thanks — we’ve received your wholesale inquiry and will be in touch shortly.';
+  const msg = 'Thanks, we’ve received your wholesale inquiry and will be in touch shortly.';
   initAjaxForm('wholesale-form', msg);
   document.addEventListener('astro:after-swap', () => initAjaxForm('wholesale-form', msg));
 </script>
