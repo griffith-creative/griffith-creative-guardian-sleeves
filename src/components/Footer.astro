@@ -25,14 +25,6 @@ const columns = [
       { label: 'Shipping & Returns', href: '/faq' },
     ],
   },
-  {
-    title: 'Connect',
-    links: [
-      { label: 'Instagram', href: '#' },
-      { label: 'Twitter', href: '#' },
-      { label: 'Discord', href: '#' },
-    ],
-  },
 ];
 ---
 
@@ -44,7 +36,7 @@ const columns = [
     </div>
 
     <!-- Columns -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
       {columns.map((col) => (
         <div>
           <p class="text-[16px] font-medium leading-[1.5] text-ink mb-4">{col.title}</p>
