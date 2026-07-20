@@ -4,7 +4,7 @@ import UtilityBar from '../../components/UtilityBar.astro';
 import PrimaryNav from '../../components/PrimaryNav.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import Footer from '../../components/Footer.astro';
-import { COLORWAYS, photosFor } from '../../data/products';
+import { COLORWAYS, cardFor } from '../../data/products';
 ---
 
 <Layout title="Sleeves — Guardian Sleeves" description="Standard size tournament-grade card sleeves in eleven colors. Archival polypropylene. Matte finish. 120 per pack.">
@@ -25,7 +25,7 @@ import { COLORWAYS, photosFor } from '../../data/products';
             subtitle="Standard Size · Matte"
             price={colorway.live ? `$${colorway.price}` : 'Coming Soon'}
             href={`/products/${colorway.slug}`}
-            image={photosFor(colorway.slug)[0]}
+            image={cardFor(colorway.slug)}
             badge={colorway.live ? 'New' : undefined}
           />
         ))}

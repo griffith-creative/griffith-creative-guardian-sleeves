@@ -53,3 +53,15 @@ export function photosFor(slug: string): ImageMetadata[] {
     .sort()
     .map((path) => photoModules[path].default);
 }
+
+// Catalog card images: AI-cutout composites on a uniform studio backdrop
+// (normalized box scale), separate from the authentic PDP gallery photos.
+const cardModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/images/cards/*.{jpg,jpeg,png}',
+  { eager: true }
+);
+
+export function cardFor(slug: string): ImageMetadata | undefined {
+  const path = Object.keys(cardModules).find((p) => p.endsWith(`/${slug}.jpg`));
+  return path ? cardModules[path].default : photosFor(slug)[0];
+}
