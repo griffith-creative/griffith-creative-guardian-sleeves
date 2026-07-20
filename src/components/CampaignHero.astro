@@ -36,6 +36,14 @@ const isExternal = /^https?:\/\//.test(ctaHref);
     </div>
   )}
 
+  <!-- Legibility scrim: keeps the canvas headline readable over light image
+       areas and during image load, when the section bg is still soft-cloud. -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.15) 45%, transparent 75%);"
+    aria-hidden="true"
+  ></div>
+
   <div class="relative z-10 container-guardian pb-12 md:pb-16">
     <h1
       class:list={[

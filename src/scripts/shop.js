@@ -22,6 +22,9 @@ function initPDP() {
   const statusEl = document.getElementById('pdp-status');
   const descEl = document.getElementById('pdp-description');
   const handle = buy.dataset.handle;
+  // Coming-soon colorways render disabled; if their product has appeared in
+  // Shopify under the expected handle, the probe below enables them live.
+  const isLive = buy.dataset.live !== 'false';
 
   // ─── Quantity stepper ───
   const qtyInput = document.getElementById('qty');
@@ -64,7 +67,16 @@ function initPDP() {
         if (formatted) priceEl.textContent = formatted;
       }
       if (descEl && p.descriptionHtml) descEl.innerHTML = p.descriptionHtml;
-      if (!p.available) setSoldOut();
+      if (!p.available) {
+        setSoldOut();
+        return;
+      }
+      if (!isLive) {
+        buy.disabled = false;
+        buy.textContent = 'Add to Cart';
+        buy.classList.remove('bg-soft-cloud', 'text-ink', 'cursor-not-allowed');
+        buy.classList.add('bg-accent', 'hover:bg-accent-hover', 'text-canvas');
+      }
     });
   }
 

@@ -32,6 +32,13 @@ const { image, headline, cta, ctaHref, photoDescription = 'Lifestyle shot' } = A
     </div>
   )}
 
+  <!-- Legibility scrim for the canvas headline over light image areas. -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.15) 45%, transparent 75%);"
+    aria-hidden="true"
+  ></div>
+
   <div class="relative z-10 container-guardian pb-10 md:pb-14">
     {headline && (
       <h2 class="font-display uppercase text-canvas text-[32px] md:text-[48px] lg:text-[64px] leading-[0.9] tracking-tight mb-6">

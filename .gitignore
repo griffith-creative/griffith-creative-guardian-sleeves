@@ -18,6 +18,9 @@ dist/
 # Vercel
 .vercel/
 
+# Raw client photography (269MB source files; web-sized copies live in src/assets/images/products/)
+_Assets/Client Photos/
+
 # OS
 .DS_Store
 Thumbs.db

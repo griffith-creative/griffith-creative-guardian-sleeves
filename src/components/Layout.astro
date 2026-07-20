@@ -9,7 +9,7 @@ interface Props {
   ogImage?: string;
 }
 
-const { title, description, ogImage = '/images/guardian-black-box.png' } = Astro.props;
+const { title, description, ogImage = '/images/og.jpg' } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site || 'https://guardiansleeves.com');
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site || 'https://guardiansleeves.com').href;
 ---

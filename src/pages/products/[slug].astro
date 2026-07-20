@@ -1,0 +1,275 @@
+---
+import Layout from '../../components/Layout.astro';
+import UtilityBar from '../../components/UtilityBar.astro';
+import PrimaryNav from '../../components/PrimaryNav.astro';
+import SpecBlock from '../../components/SpecBlock.astro';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+import { COLORWAYS, photosFor } from '../../data/products';
+
+export function getStaticPaths() {
+  return COLORWAYS.map((colorway) => ({
+    params: { slug: colorway.slug },
+    props: { colorway },
+  }));
+}
+
+const { colorway } = Astro.props;
+const photos = photosFor(colorway.slug);
+const shotNames = ['front', '3/4 angle', 'open box with sleeve'];
+
+const fallbackPrice = colorway.live ? `$${colorway.price}` : 'Coming Soon';
+
+const jsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: `Guardian Sleeves ${colorway.colorName}`,
+  description: `Tournament-grade card sleeves. 66×91.5mm. Archival polypropylene. Matte finish. 120 per pack.`,
+  brand: { '@type': 'Brand', name: 'Guardian Sleeves' },
+};
+if (colorway.live) {
+  jsonLd.offers = {
+    '@type': 'Offer',
+    price: colorway.price,
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: `https://guardiansleeves.com/products/${colorway.handle}`,
+  };
+}
+
+const metaDescription = colorway.live
+  ? `Guardian Sleeves ${colorway.colorName}. 66×91.5mm. Archival polypropylene. Matte finish. 120 per pack. $${colorway.price}.`
+  : `Guardian Sleeves ${colorway.colorName}. 66×91.5mm. Archival polypropylene. Matte finish. 120 per pack. Coming soon.`;
+---
+
+<Layout title={`${colorway.name} — Guardian Sleeves`} description={metaDescription}>
+  <script slot="json-ld" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  <UtilityBar slot="utility-bar" />
+  <PrimaryNav slot="nav" activeSection="/products" />
+
+  <section class="py-[var(--space-section)]">
+    <div class="container-guardian">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <!-- Image Gallery -->
+        <div data-animate="fade-up">
+          <div id="pdp-gallery" class="aspect-square bg-soft-cloud overflow-hidden">
+            {photos.map((photo, i) => (
+              <Image
+                src={photo}
+                alt={`${colorway.name}, ${shotNames[i] ?? 'product'} view`}
+                widths={[640, 960, 1280]}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                format="avif"
+                quality={80}
+                class:list={['w-full h-full object-cover', i > 0 && 'hidden']}
+                data-gallery-image={i}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            ))}
+          </div>
+          {photos.length > 1 && (
+            <div class="mt-3 grid grid-cols-4 gap-3" role="group" aria-label="Product photos">
+              {photos.map((photo, i) => (
+                <button
+                  type="button"
+                  data-gallery-thumb={i}
+                  aria-label={`View ${shotNames[i] ?? 'product'} photo`}
+                  aria-pressed={i === 0}
+                  class="aspect-square bg-soft-cloud overflow-hidden border transition-colors data-[active]:border-ink border-transparent hover:border-hairline"
+                  data-active={i === 0 ? '' : undefined}
+                >
+                  <Image
+                    src={photo}
+                    alt=""
+                    widths={[160, 240]}
+                    sizes="120px"
+                    format="avif"
+                    quality={70}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Product Info -->
+        <div data-animate="fade-up">
+          <h1 class="font-display text-[48px] md:text-[64px] leading-[0.9] uppercase text-ink">{colorway.name}</h1>
+          <p id="pdp-price" class="text-[24px] font-medium leading-[1.2] text-ink mt-4">{fallbackPrice}</p>
+
+          <!-- Color selector -->
+          <div class="mt-8">
+            <label for="color-select" class="block text-[14px] font-medium leading-[1.5] text-ink mb-2">Color</label>
+            <div class="relative inline-block w-full max-w-xs">
+              <span
+                aria-hidden="true"
+                class="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full pointer-events-none"
+                style={`background-color: ${colorway.swatch}; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);`}
+              ></span>
+              <select
+                id="color-select"
+                class="w-full appearance-none border border-hairline rounded-full bg-canvas pl-12 pr-12 py-3 text-[16px] font-medium text-ink cursor-pointer focus:outline-none focus:border-ink transition-colors"
+              >
+                {COLORWAYS.map((c) => (
+                  <option value={`/products/${c.slug}`} selected={c.slug === colorway.slug}>
+                    {c.colorName}{c.live ? '' : ' (Coming Soon)'}
+                  </option>
+                ))}
+              </select>
+              <svg class="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <SpecBlock specs={[
+              { label: 'Size', value: '66×91.5mm' },
+              { label: 'Material', value: 'Archival PP' },
+              { label: 'Finish', value: 'Matte' },
+              { label: 'Pack', value: '120 Sleeves' },
+            ]} />
+          </div>
+
+          <!-- Quantity -->
+          <div class="mt-8 flex items-center gap-4">
+            <span id="qty-label" class="text-[14px] font-medium leading-[1.5] text-ink">Quantity</span>
+            <div class="inline-flex items-center border border-hairline rounded-full" role="group" aria-labelledby="qty-label">
+              <button type="button" id="qty-minus" aria-label="Decrease quantity" class="w-11 h-11 flex items-center justify-center text-[20px] text-ink hover:bg-soft-cloud rounded-l-full transition-colors">&minus;</button>
+              <input
+                id="qty"
+                type="number"
+                inputmode="numeric"
+                min="1"
+                max="99"
+                value="1"
+                aria-label="Quantity"
+                class="qty-input w-12 text-center border-0 bg-transparent text-[16px] font-medium text-ink focus:outline-none"
+              />
+              <button type="button" id="qty-plus" aria-label="Increase quantity" class="w-11 h-11 flex items-center justify-center text-[20px] text-ink hover:bg-soft-cloud rounded-r-full transition-colors">+</button>
+            </div>
+          </div>
+
+          <!-- Buy Button — Storefront Cart API checkout (see scripts/shop.js).
+               Coming-soon colorways ship disabled; shop.js probes the handle
+               and enables the button if the product goes live in Shopify. -->
+          <div class="mt-6">
+            <button
+              id="buy-now"
+              type="button"
+              data-handle={colorway.handle}
+              data-live={colorway.live ? 'true' : 'false'}
+              data-variant-id={colorway.variantId}
+              disabled={!colorway.live}
+              class:list={[
+                'w-full text-center font-medium text-[16px] px-8 py-4 rounded-full transition-colors',
+                colorway.live
+                  ? 'bg-accent hover:bg-accent-hover text-canvas disabled:opacity-60 disabled:cursor-not-allowed'
+                  : 'bg-soft-cloud text-ink cursor-not-allowed',
+              ]}
+            >
+              {colorway.live ? 'Add to Cart' : 'Coming Soon'}
+            </button>
+            <p id="pdp-status" role="status" aria-live="polite" class="hidden mt-3 text-[14px] font-medium leading-[1.5]"></p>
+          </div>
+
+          <!-- Disclosure Rows -->
+          <div class="mt-10 divide-y divide-hairline border-t border-hairline">
+            <details class="py-6 group">
+              <summary class="flex items-center justify-between cursor-pointer list-none">
+                <span class="text-[16px] font-medium text-ink">Product Details</span>
+                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div id="pdp-description" class="pt-4 text-[16px] text-mute leading-[1.5]">
+                <p>Protect your cards with Guardian Sleeves in {colorway.colorName}, featuring a sophisticated matte finish that reduces glare and fingerprints while enabling smooth shuffling. The durable construction shields your collection from wear, creasing, and damage, keeping your cards in pristine condition. Perfect for serious collectors and competitive players who demand both performance and style.</p>
+              </div>
+            </details>
+
+            <details class="py-6 group">
+              <summary class="flex items-center justify-between cursor-pointer list-none">
+                <span class="text-[16px] font-medium text-ink">Shipping & Returns</span>
+                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div class="pt-4 text-[16px] text-mute leading-[1.5]">
+                <p>Free shipping on orders over $50. Standard shipping 3–5 business days. Returns accepted within 30 days of purchase for unopened product.</p>
+              </div>
+            </details>
+
+            <details class="py-6 group">
+              <summary class="flex items-center justify-between cursor-pointer list-none">
+                <span class="text-[16px] font-medium text-ink">Reviews</span>
+                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div class="pt-4 text-[16px] text-mute leading-[1.5]">
+                <p>Reviews coming soon.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  /* Hide native number-input spinners; we use custom −/+ controls. */
+  .qty-input::-webkit-outer-spin-button,
+  .qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .qty-input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+</style>
+
+<script>
+  import '../../scripts/shop.js';
+
+  function initPdpUi() {
+    // Color selector navigates between colorway pages.
+    const select = document.getElementById('color-select');
+    if (select && !select.dataset.bound) {
+      select.dataset.bound = 'true';
+      select.addEventListener('change', () => {
+        window.location.href = select.value;
+      });
+    }
+
+    // Gallery thumbnails swap the main image.
+    const gallery = document.getElementById('pdp-gallery');
+    if (gallery && !gallery.dataset.bound) {
+      gallery.dataset.bound = 'true';
+      const images = document.querySelectorAll('[data-gallery-image]');
+      const thumbs = document.querySelectorAll('[data-gallery-thumb]');
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener('click', () => {
+          const idx = thumb.getAttribute('data-gallery-thumb');
+          images.forEach((img) => img.classList.toggle('hidden', img.getAttribute('data-gallery-image') !== idx));
+          thumbs.forEach((t) => {
+            const active = t === thumb;
+            if (active) t.setAttribute('data-active', '');
+            else t.removeAttribute('data-active');
+            t.setAttribute('aria-pressed', String(active));
+          });
+        });
+      });
+    }
+  }
+
+  initPdpUi();
+  document.addEventListener('astro:after-swap', initPdpUi);
+</script>

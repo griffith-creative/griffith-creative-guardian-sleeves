@@ -10,8 +10,8 @@ import Footer from '../components/Footer.astro';
 
 import { FORMSPREE_ENDPOINT } from '../consts';
 
-import heroImage from '../assets/images/hero-cards-fanned.png';
-import lifestyleImage from '../assets/images/lifestyle-sleeves-stack.png';
+import heroImage from '../assets/images/hero-lineup.jpg';
+import lifestyleImage from '../assets/images/lifestyle-lineup.jpg';
 ---
 
 <Layout title="Guardian Sleeves — Built for the Shuffle" description="Tournament-grade TCG card sleeves. Standard size. No compromise.">
@@ -29,7 +29,7 @@ import lifestyleImage from '../assets/images/lifestyle-sleeves-stack.png';
   <!-- Hero -->
   <CampaignHero
     image={heroImage}
-    imageAlt="Trading card game cards fanned across a dark slate surface in Guardian Sleeves"
+    imageAlt="The full Guardian Sleeves colorway lineup, boxes staggered with Guardian Black front and center"
     headline="BUILT FOR THE SHUFFLE"
     cta="Shop Black"
     ctaHref="/products/guardian-black"
@@ -40,10 +40,10 @@ import lifestyleImage from '../assets/images/lifestyle-sleeves-stack.png';
   <section class="py-[var(--space-section)]" data-animate="fade-up">
     <div class="container-guardian">
       <SpecBlock specs={[
-        { label: 'Size', value: '66×91mm' },
+        { label: 'Size', value: '66×91.5mm' },
         { label: 'Material', value: 'Archival Polypropylene' },
         { label: 'Finish', value: 'Matte' },
-        { label: 'Pack', value: '100 Sleeves' },
+        { label: 'Pack', value: '120 Sleeves' },
       ]} />
     </div>
   </section>
@@ -84,7 +84,7 @@ import lifestyleImage from '../assets/images/lifestyle-sleeves-stack.png';
   />
 
   <!-- Marquee -->
-  <Marquee text="TOURNAMENT GRADE · ZERO SPLIT RATE · ARCHIVE SAFE · MATTE FINISH · 100 PER PACK" />
+  <Marquee text="TOURNAMENT GRADE · ZERO SPLIT RATE · ARCHIVE SAFE · MATTE FINISH · 120 PER PACK" />
 
   <!-- Wholesale Callout -->
   <section class="py-16 md:py-24" data-animate="fade-up">
@@ -98,7 +98,7 @@ import lifestyleImage from '../assets/images/lifestyle-sleeves-stack.png';
   </section>
 
   <!-- Email Capture -->
-  <section class="py-[var(--space-section)] bg-soft-cloud" data-animate="fade-up">
+  <section id="newsletter" class="py-[var(--space-section)] bg-soft-cloud" data-animate="fade-up">
     <div class="container-guardian">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         <!-- Left column (5/12) -->

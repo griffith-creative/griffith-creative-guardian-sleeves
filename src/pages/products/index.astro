@@ -4,11 +4,10 @@ import UtilityBar from '../../components/UtilityBar.astro';
 import PrimaryNav from '../../components/PrimaryNav.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import Footer from '../../components/Footer.astro';
-
-import productImage from '../../assets/images/guardian-black-box.png';
+import { COLORWAYS, photosFor } from '../../data/products';
 ---
 
-<Layout title="Sleeves — Guardian Sleeves" description="Standard size tournament-grade card sleeves. Archival polypropylene. Matte finish. 100 per pack.">
+<Layout title="Sleeves — Guardian Sleeves" description="Standard size tournament-grade card sleeves in eleven colors. Archival polypropylene. Matte finish. 120 per pack.">
   <UtilityBar slot="utility-bar" />
   <PrimaryNav slot="nav" activeSection="/products" />
 
@@ -16,22 +15,32 @@ import productImage from '../../assets/images/guardian-black-box.png';
     <div class="container-guardian">
       <div class="mb-12" data-animate="fade-up">
         <h1 class="font-display text-[64px] md:text-[96px] leading-[0.9] uppercase text-ink">SLEEVES</h1>
-        <p class="text-[16px] text-mute mt-4">Standard size. Archival grade. One job done right.</p>
+        <p class="text-[16px] text-mute mt-4">Standard size. Archival grade. Eleven colors, one job done right.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[var(--space-sm)]" data-animate="fade-up">
-        <ProductCard
-          name="Guardian Black"
-          subtitle="Standard Size · Matte"
-          price="$10.99"
-          href="/products/guardian-black"
-          image={productImage}
-          badge="New"
-        />
-      </div>
+        {COLORWAYS.map((colorway) => (
+          <ProductCard
+            name={colorway.name}
+            subtitle="Standard Size · Matte"
+            price={colorway.live ? `$${colorway.price}` : 'Coming Soon'}
+            href={`/products/${colorway.slug}`}
+            image={photosFor(colorway.slug)[0]}
+            badge={colorway.live ? 'New' : undefined}
+          />
+        ))}
 
-      <div class="mt-12 text-center" data-animate="fade-up">
-        <p class="text-[14px] font-medium text-mute">More colors coming soon.</p>
+        <!-- 12th cell keeps the 3-column grid balanced (11 products). -->
+        <a href="/#newsletter" class="group flex flex-col">
+          <div class="aspect-square bg-ink flex flex-col items-center justify-center text-center px-8">
+            <span class="font-display text-[32px] leading-[0.9] uppercase text-canvas">More on the way</span>
+            <span class="mt-4 inline-block bg-canvas text-ink font-medium text-[14px] px-5 py-2.5 rounded-full group-hover:bg-soft-cloud transition-colors">Get drops first</span>
+          </div>
+          <div class="mt-2 flex flex-col gap-1">
+            <span class="text-[16px] font-medium leading-[1.5] text-ink">New colorways in production</span>
+            <span class="text-[14px] font-medium leading-[1.5] text-mute">Join the list for launch day</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
