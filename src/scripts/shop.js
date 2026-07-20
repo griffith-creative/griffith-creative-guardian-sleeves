@@ -21,6 +21,21 @@ function initPDP() {
   const statusEl = document.getElementById('pdp-status');
   const handle = buy.dataset.handle;
 
+  // ─── Quantity stepper ───
+  const qtyInput = document.getElementById('qty');
+  const QTY_MIN = 1;
+  const QTY_MAX = 99;
+  const readQty = () => {
+    const n = parseInt(qtyInput?.value, 10);
+    return Math.min(QTY_MAX, Math.max(QTY_MIN, Number.isNaN(n) ? QTY_MIN : n));
+  };
+  const setQty = (n) => {
+    if (qtyInput) qtyInput.value = String(Math.min(QTY_MAX, Math.max(QTY_MIN, n)));
+  };
+  document.getElementById('qty-minus')?.addEventListener('click', () => setQty(readQty() - 1));
+  document.getElementById('qty-plus')?.addEventListener('click', () => setQty(readQty() + 1));
+  qtyInput?.addEventListener('change', () => setQty(readQty()));
+
   const setStatus = (msg, ok) => {
     if (!statusEl) return;
     if (!msg) {
@@ -65,7 +80,7 @@ function initPDP() {
     setStatus('', true);
 
     try {
-      const url = await createCheckout(variantId, 1);
+      const url = await createCheckout(variantId, readQty());
       window.location.href = url;
     } catch (err) {
       buy.disabled = false;
