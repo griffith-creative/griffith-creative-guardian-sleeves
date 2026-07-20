@@ -37,6 +37,7 @@ const PRODUCT_QUERY = /* GraphQL */ `
   query Product($handle: String!) {
     product(handle: $handle) {
       title
+      descriptionHtml
       availableForSale
       variants(first: 1) {
         nodes {
@@ -58,6 +59,7 @@ export async function getProduct(handle) {
     if (!p || !v) return null;
     return {
       title: p.title,
+      descriptionHtml: p.descriptionHtml,
       price: v.price.amount,
       currency: v.price.currencyCode,
       available: p.availableForSale && v.availableForSale,

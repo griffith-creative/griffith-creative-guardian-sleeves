@@ -19,6 +19,7 @@ function initPDP() {
 
   const priceEl = document.getElementById('pdp-price');
   const statusEl = document.getElementById('pdp-status');
+  const descEl = document.getElementById('pdp-description');
   const handle = buy.dataset.handle;
 
   // ─── Quantity stepper ───
@@ -61,6 +62,7 @@ function initPDP() {
         const formatted = formatPrice(p.price, p.currency);
         if (formatted) priceEl.textContent = formatted;
       }
+      if (descEl && p.descriptionHtml) descEl.innerHTML = p.descriptionHtml;
       if (!p.available) setSoldOut();
     });
   }
