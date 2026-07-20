@@ -1,13 +1,18 @@
 ---
 ---
 
-<form class="flex flex-col gap-6" method="POST" action="/contact">
+<!-- Submits to the Guardian Sleeves Shopify store's native contact form.
+     Shopify captures contact[name] / contact[email] / contact[body]; form_type=contact routes it to the store inbox. -->
+<form class="flex flex-col gap-6" method="POST" action="https://guardiansleeves.com/contact" accept-charset="UTF-8">
+  <input type="hidden" name="form_type" value="contact" />
+  <input type="hidden" name="utf8" value="✓" />
+
   <div class="flex flex-col gap-2">
     <label for="contact-name" class="text-[14px] font-medium leading-[1.5] text-ink">Name</label>
     <input
       type="text"
       id="contact-name"
-      name="name"
+      name="contact[name]"
       required
       class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
     />
@@ -18,7 +23,7 @@
     <input
       type="email"
       id="contact-email"
-      name="email"
+      name="contact[email]"
       required
       class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
     />
@@ -28,7 +33,7 @@
     <label for="contact-message" class="text-[14px] font-medium leading-[1.5] text-ink">Message</label>
     <textarea
       id="contact-message"
-      name="message"
+      name="contact[body]"
       rows="5"
       required
       class="w-full border border-hairline rounded-[18px] px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors resize-none"
