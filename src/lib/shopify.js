@@ -15,7 +15,7 @@ export function isConfigured() {
   return !!SHOPIFY_STOREFRONT_TOKEN && !SHOPIFY_STOREFRONT_TOKEN.includes('REPLACE_ME');
 }
 
-async function storefront(query, variables = {}) {
+export async function storefront(query, variables = {}) {
   if (!isConfigured()) throw new Error('Shopify Storefront token not configured');
 
   const res = await fetch(ENDPOINT, {

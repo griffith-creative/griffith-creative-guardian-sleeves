@@ -1,0 +1,81 @@
+---
+// Slide-out cart drawer. Rendered once in Layout and persisted across page
+// transitions. Contents are populated by scripts/cart-ui.js.
+---
+
+<div id="cart-root" class="cart-root" aria-hidden="true" transition:persist>
+  <div id="cart-backdrop" class="cart-backdrop"></div>
+
+  <aside id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+    <header class="flex items-center justify-between px-6 h-16 border-b border-hairline shrink-0">
+      <h2 class="text-[16px] font-medium text-ink">Cart</h2>
+      <button id="cart-close" type="button" aria-label="Close cart" class="w-10 h-10 -mr-2 flex items-center justify-center text-ink rounded-full hover:bg-soft-cloud transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Empty state -->
+    <div id="cart-empty" class="flex-1 flex flex-col items-center justify-center gap-4 px-6 text-center">
+      <p class="text-[16px] text-mute">Your cart is empty.</p>
+      <a href="/products" data-cart-close class="bg-ink text-canvas font-medium text-[14px] px-6 py-3 rounded-full hover:bg-charcoal transition-colors">Shop Sleeves</a>
+    </div>
+
+    <!-- Line items -->
+    <div id="cart-lines" class="flex-1 overflow-y-auto px-6 hidden"></div>
+
+    <!-- Footer -->
+    <footer id="cart-footer" class="border-t border-hairline px-6 py-5 shrink-0 hidden">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-[16px] font-medium text-ink">Subtotal</span>
+        <span id="cart-subtotal" class="text-[16px] font-medium text-ink">$0.00</span>
+      </div>
+      <p class="text-[13px] text-mute mb-4">Shipping and taxes calculated at checkout.</p>
+      <button id="cart-checkout" type="button" class="w-full bg-accent hover:bg-accent-hover text-canvas font-medium text-[16px] px-8 py-4 rounded-full transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+        Checkout
+      </button>
+      <p id="cart-status" role="status" aria-live="polite" class="hidden mt-3 text-[14px] font-medium leading-[1.5] text-center"></p>
+    </footer>
+  </aside>
+</div>
+
+<style>
+  .cart-root {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    visibility: hidden;
+  }
+  .cart-root.is-open { visibility: visible; }
+
+  .cart-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .cart-root.is-open .cart-backdrop { opacity: 1; }
+
+  .cart-drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: min(420px, 100%);
+    background: var(--canvas);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -8px 0 24px rgba(10, 10, 10, 0.08);
+  }
+  .cart-root.is-open .cart-drawer { transform: translateX(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cart-backdrop,
+    .cart-drawer { transition: none; }
+  }
+</style>

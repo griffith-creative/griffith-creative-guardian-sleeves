@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import MobileBottomNav from './MobileBottomNav.astro';
+import CartDrawer from './CartDrawer.astro';
 
 interface Props {
   title: string;
@@ -71,9 +72,16 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro
 
     <MobileBottomNav />
 
+    <CartDrawer />
+
     <!-- Animation System -->
     <script>
       import '../scripts/animations.js';
+    </script>
+
+    <!-- Cart -->
+    <script>
+      import '../scripts/cart-ui.js';
     </script>
   </body>
 </html>

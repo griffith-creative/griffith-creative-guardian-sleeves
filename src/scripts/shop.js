@@ -1,6 +1,7 @@
 // PDP behavior: refresh price/availability live from Shopify (so admin edits
 // reflect without a redeploy) and drive the Buy button through the Cart API.
-import { getProduct, createCheckout, isConfigured } from '../lib/shopify.js';
+import { getProduct, isConfigured } from '../lib/shopify.js';
+import { addToCart } from '../lib/cart.js';
 
 function formatPrice(amount, currency) {
   const n = Number(amount);
@@ -71,24 +72,26 @@ function initPDP() {
     if (buy.disabled) return;
 
     if (!isConfigured()) {
-      setStatus('Checkout is being set up. Please check back shortly.', false);
+      setStatus('The store is being set up. Please check back shortly.', false);
       return;
     }
 
     const variantId = buy.dataset.variantId;
     const label = buy.textContent;
     buy.disabled = true;
-    buy.textContent = 'Loading…';
+    buy.textContent = 'Adding…';
     setStatus('', true);
 
     try {
-      const url = await createCheckout(variantId, readQty());
-      window.location.href = url;
+      await addToCart(variantId, readQty());
+      buy.disabled = false;
+      buy.textContent = label;
+      document.dispatchEvent(new CustomEvent('cart:open'));
     } catch (err) {
       buy.disabled = false;
       buy.textContent = label;
-      setStatus('Could not start checkout. Please try again in a moment.', false);
-      console.error('Checkout error:', err);
+      setStatus('Could not add to cart. Please try again in a moment.', false);
+      console.error('Add to cart error:', err);
     }
   });
 }
