@@ -1,37 +1,32 @@
 ---
+// Stockist list intentionally removed pending a client-confirmed retailer
+// list: never publish third-party stores as stockists without verification.
+// The Mapbox retailer locator lives in git history (RetailerMap/RetailerList
+// + src/data/retailers.ts) and can come back when real stockists exist.
 import Layout from '../components/Layout.astro';
 import UtilityBar from '../components/UtilityBar.astro';
 import PrimaryNav from '../components/PrimaryNav.astro';
-import RetailerMap from '../components/RetailerMap.astro';
-import RetailerList from '../components/RetailerList.astro';
 import Footer from '../components/Footer.astro';
-import { retailers } from '../data/retailers';
 ---
 
-<Layout title="Find Us | Guardian Sleeves" description="Find card shops carrying Guardian Sleeves near you. Retailer locations in the Los Angeles area.">
+<Layout title="Find Us | Guardian Sleeves" description="Guardian Sleeves retail availability is rolling out. Want Guardian at your local game store? Point them to our wholesale program.">
   <UtilityBar slot="utility-bar" />
-  <PrimaryNav slot="nav" activeSection="/find-us" />
+  <PrimaryNav slot="nav" />
 
-  <!-- Hero -->
-  <section class="bg-ink pt-[var(--space-section)] pb-[var(--space-section)]">
-    <div class="container-guardian">
-      <h1 class="font-display text-[48px] md:text-[64px] lg:text-[96px] leading-[0.9] uppercase text-canvas">
-        Find Guardian Sleeves near you.
-      </h1>
-      <p class="text-[16px] md:text-[18px] font-normal leading-[1.5] text-stone mt-4">
-        Card shops carrying Guardian, mapped.
-      </p>
+  <section class="py-[var(--space-section)]">
+    <div class="container-guardian" data-animate="fade-up">
+      <h1 class="font-display text-[64px] md:text-[96px] leading-[0.9] uppercase text-ink">FIND US</h1>
+      <p class="text-[16px] text-mute mt-6 max-w-xl">Retail availability is rolling out. Want Guardian at your local game store? Tell them about us, or point them to our wholesale program and we'll take it from there.</p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/wholesale" class="bg-accent hover:bg-accent-hover inline-block text-canvas font-medium text-[16px] px-8 py-4 rounded-full transition-colors">
+          Wholesale Program
+        </a>
+        <a href="/products" class="border border-hairline hover:border-ink inline-block text-ink font-medium text-[16px] px-8 py-4 rounded-full transition-colors">
+          Shop Online
+        </a>
+      </div>
     </div>
   </section>
-
-  <!-- Map -->
-  <section class="py-[var(--space-section)]">
-    <RetailerMap retailers={retailers} />
-  </section>
-
-  <!-- Retailer List (works without JS as primary content) -->
-  <!-- TODO: Add search/filter UI when retailer count warrants it -->
-  <RetailerList retailers={retailers} />
 
   <Footer slot="footer" />
 </Layout>
