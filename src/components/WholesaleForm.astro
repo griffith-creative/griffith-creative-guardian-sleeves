@@ -1,12 +1,11 @@
 ---
+import { FORMSPREE_ENDPOINT } from '../consts';
 ---
 
-<!-- Submits to the Guardian Sleeves Shopify store's native contact form.
-     Business / location / volume are composed into contact[body] on submit (Shopify contact only captures name/email/phone/body). -->
-<form id="wholesale-form" class="flex flex-col gap-6" method="POST" action="https://guardiansleeves.com/contact" accept-charset="UTF-8">
-  <input type="hidden" name="form_type" value="contact" />
-  <input type="hidden" name="utf8" value="✓" />
-  <input type="hidden" name="contact[body]" id="ws-body" />
+<!-- AJAX submit to Formspree — Formspree captures every named field and emails them to the store. -->
+<form id="wholesale-form" class="flex flex-col gap-6" data-endpoint={FORMSPREE_ENDPOINT} novalidate>
+  <input type="hidden" name="_subject" value="New wholesale inquiry — Guardian Sleeves" />
+
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="flex flex-col gap-2">
       <label for="ws-business" class="text-[14px] font-medium leading-[1.5] text-ink">Business Name</label>
@@ -24,7 +23,7 @@
       <input
         type="text"
         id="ws-contact"
-        name="contact[name]"
+        name="contact_name"
         required
         class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
       />
@@ -37,7 +36,7 @@
       <input
         type="email"
         id="ws-email"
-        name="contact[email]"
+        name="email"
         required
         class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
       />
@@ -60,7 +59,7 @@
     <div class="relative">
       <select
         id="ws-volume"
-        name="volume"
+        name="monthly_volume"
         class="w-full border border-hairline rounded-full px-5 py-3 pr-12 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors appearance-none"
       >
         <option value="">Select volume</option>
@@ -87,33 +86,17 @@
 
   <button
     type="submit"
-    class="self-start bg-ink text-canvas font-medium text-[16px] px-8 py-4 rounded-full hover:bg-charcoal transition-colors min-h-[48px]"
+    class="self-start bg-ink text-canvas font-medium text-[16px] px-8 py-4 rounded-full hover:bg-charcoal transition-colors min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
   >
     Submit Inquiry
   </button>
+
+  <p data-form-status role="status" aria-live="polite" class="hidden text-[14px] font-medium leading-[1.5]"></p>
 </form>
 
 <script>
-  function initWholesaleForm() {
-    const form = document.getElementById('wholesale-form') as HTMLFormElement | null;
-    if (!form || form.dataset.bound) return;
-    form.dataset.bound = 'true';
-
-    form.addEventListener('submit', () => {
-      const val = (id: string) => (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null)?.value.trim() || '';
-      const lines = [
-        'Wholesale inquiry',
-        `Business: ${val('ws-business')}`,
-        `Location: ${val('ws-location') || '—'}`,
-        `Monthly volume: ${val('ws-volume') || '—'}`,
-        '',
-        `Message: ${val('ws-message') || '—'}`,
-      ];
-      const body = document.getElementById('ws-body') as HTMLInputElement | null;
-      if (body) body.value = lines.join('\n');
-    });
-  }
-
-  initWholesaleForm();
-  document.addEventListener('astro:after-swap', initWholesaleForm);
+  import { initAjaxForm } from '../scripts/forms.js';
+  const msg = 'Thanks — we’ve received your wholesale inquiry and will be in touch shortly.';
+  initAjaxForm('wholesale-form', msg);
+  document.addEventListener('astro:after-swap', () => initAjaxForm('wholesale-form', msg));
 </script>

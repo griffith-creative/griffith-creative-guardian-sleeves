@@ -1,18 +1,15 @@
 ---
+import { FORMSPREE_ENDPOINT } from '../consts';
 ---
 
-<!-- Submits to the Guardian Sleeves Shopify store's native contact form.
-     Shopify captures contact[name] / contact[email] / contact[body]; form_type=contact routes it to the store inbox. -->
-<form class="flex flex-col gap-6" method="POST" action="https://guardiansleeves.com/contact" accept-charset="UTF-8">
-  <input type="hidden" name="form_type" value="contact" />
-  <input type="hidden" name="utf8" value="✓" />
-
+<!-- AJAX submit to Formspree — stays on the branded site, shows real success/error. -->
+<form id="contact-form" class="flex flex-col gap-6" data-endpoint={FORMSPREE_ENDPOINT} novalidate>
   <div class="flex flex-col gap-2">
     <label for="contact-name" class="text-[14px] font-medium leading-[1.5] text-ink">Name</label>
     <input
       type="text"
       id="contact-name"
-      name="contact[name]"
+      name="name"
       required
       class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
     />
@@ -23,7 +20,7 @@
     <input
       type="email"
       id="contact-email"
-      name="contact[email]"
+      name="email"
       required
       class="w-full border border-hairline rounded-full px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors"
     />
@@ -33,7 +30,7 @@
     <label for="contact-message" class="text-[14px] font-medium leading-[1.5] text-ink">Message</label>
     <textarea
       id="contact-message"
-      name="contact[body]"
+      name="message"
       rows="5"
       required
       class="w-full border border-hairline rounded-[18px] px-5 py-3 text-[16px] text-ink bg-canvas focus:outline-none focus:border-ink transition-colors resize-none"
@@ -42,8 +39,18 @@
 
   <button
     type="submit"
-    class="self-start bg-ink text-canvas font-medium text-[16px] px-8 py-4 rounded-full hover:bg-charcoal transition-colors min-h-[48px]"
+    class="self-start bg-ink text-canvas font-medium text-[16px] px-8 py-4 rounded-full hover:bg-charcoal transition-colors min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
   >
     Send Message
   </button>
+
+  <p data-form-status role="status" aria-live="polite" class="hidden text-[14px] font-medium leading-[1.5]"></p>
 </form>
+
+<script>
+  import { initAjaxForm } from '../scripts/forms.js';
+  initAjaxForm('contact-form', 'Thanks — your message is on its way. We’ll be in touch soon.');
+  document.addEventListener('astro:after-swap', () =>
+    initAjaxForm('contact-form', 'Thanks — your message is on its way. We’ll be in touch soon.')
+  );
+</script>
