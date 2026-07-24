@@ -1,6 +1,6 @@
 // PDP behavior: refresh price/availability live from Shopify (so admin edits
 // reflect without a redeploy) and drive the Buy button through the Cart API.
-import { getProduct, isConfigured } from '../lib/shopify.js';
+import { getVariants, isConfigured } from '../lib/shopify.js';
 import { addToCart } from '../lib/cart.js';
 
 function formatPrice(amount, currency) {
@@ -22,9 +22,7 @@ function initPDP() {
   const statusEl = document.getElementById('pdp-status');
   const descEl = document.getElementById('pdp-description');
   const handle = buy.dataset.handle;
-  // Coming-soon colorways render disabled; if their product has appeared in
-  // Shopify under the expected handle, the probe below enables them live.
-  const isLive = buy.dataset.live !== 'false';
+  const colorValue = buy.dataset.option;
 
   // ─── Quantity stepper ───
   const qtyInput = document.getElementById('qty');
@@ -57,26 +55,20 @@ function initPDP() {
     buy.textContent = 'Sold Out';
   };
 
-  // Refresh live product data (price, availability, current variant id).
-  if (isConfigured() && handle) {
-    getProduct(handle).then((p) => {
+  // Refresh live data for this color's variant (price, availability, variant id)
+  // so Shopify admin edits reflect without a redeploy.
+  if (isConfigured() && handle && colorValue) {
+    getVariants(handle).then((p) => {
       if (!p) return;
-      buy.dataset.variantId = p.variantId;
+      const v = p.variants.find((x) => x.color === colorValue);
+      if (!v) return;
+      buy.dataset.variantId = v.variantId;
       if (priceEl) {
-        const formatted = formatPrice(p.price, p.currency);
+        const formatted = formatPrice(v.price, v.currency);
         if (formatted) priceEl.textContent = formatted;
       }
       if (descEl && p.descriptionHtml) descEl.innerHTML = p.descriptionHtml;
-      if (!p.available) {
-        setSoldOut();
-        return;
-      }
-      if (!isLive) {
-        buy.disabled = false;
-        buy.textContent = 'Add to Cart';
-        buy.classList.remove('bg-soft-cloud', 'text-ink', 'cursor-not-allowed');
-        buy.classList.add('bg-accent', 'hover:bg-accent-hover', 'text-canvas');
-      }
+      if (!v.available) setSoldOut();
     });
   }
 

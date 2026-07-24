@@ -5,7 +5,7 @@ import PrimaryNav from '../../components/PrimaryNav.astro';
 import SpecBlock from '../../components/SpecBlock.astro';
 import Footer from '../../components/Footer.astro';
 import { Image } from 'astro:assets';
-import { COLORWAYS, photosFor } from '../../data/products';
+import { COLORWAYS, photosFor, PRODUCT_HANDLE } from '../../data/products';
 
 export function getStaticPaths() {
   return COLORWAYS.map((colorway) => ({
@@ -155,14 +155,14 @@ const metaDescription = colorway.live
           </div>
 
           <!-- Buy Button - Storefront Cart API checkout (see scripts/shop.js).
-               Coming-soon colorways ship disabled; shop.js probes the handle
-               and enables the button if the product goes live in Shopify. -->
+               Every color is a variant of one product; shop.js resolves this
+               color's variant live from Shopify (price/availability). -->
           <div class="mt-6">
             <button
               id="buy-now"
               type="button"
-              data-handle={colorway.handle}
-              data-live={colorway.live ? 'true' : 'false'}
+              data-handle={PRODUCT_HANDLE}
+              data-option={colorway.optionValue}
               data-variant-id={colorway.variantId}
               disabled={!colorway.live}
               class:list={[

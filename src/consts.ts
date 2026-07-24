@@ -11,15 +11,9 @@ export const SHOPIFY_DOMAIN = 'guardiansleeves.com';
 export const SHOPIFY_API_VERSION = '2026-01';
 export const SHOPIFY_STOREFRONT_TOKEN = 'b8367d54e68f8ad30ad0e816b09187dc';
 
-// The product this site sells, by Shopify handle.
-export const GUARDIAN_BLACK_HANDLE = 'guardian-sleeves-black';
-
-// Fallback product data - rendered instantly for SEO / no-JS, then refreshed
-// live from Shopify on the client so Shopify admin edits reflect on the site.
-export const GUARDIAN_BLACK_FALLBACK = {
-  title: 'Guardian Sleeves Black',
-  price: '10.99',
-  currency: 'USD',
-  available: true,
-  variantId: 'gid://shopify/ProductVariant/51129415565607',
-};
+// The store sells ONE Shopify product ("Guardian Sleeves") with a single
+// "Color" option — every colorway is a variant of it, not its own product.
+// data/products.ts maps each color to its variant id; the PDP refreshes price
+// and availability live from Shopify so admin edits reflect without a redeploy.
+export const PRODUCT_HANDLE = 'guardian-sleeves-black';
+export const PRODUCT_OPTION_NAME = 'Color';

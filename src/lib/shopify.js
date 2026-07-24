@@ -38,33 +38,35 @@ const PRODUCT_QUERY = /* GraphQL */ `
     product(handle: $handle) {
       title
       descriptionHtml
-      availableForSale
-      variants(first: 1) {
+      variants(first: 30) {
         nodes {
           id
           availableForSale
           price { amount currencyCode }
+          selectedOptions { name value }
         }
       }
     }
   }
 `;
 
-// Returns { title, price, currency, available, variantId } or null on any failure.
-export async function getProduct(handle) {
+// Fetches the single Guardian product and returns its variants indexed by the
+// "Color" option value, so a PDP can resolve its color to a live variant:
+//   { descriptionHtml, variants: [{ color, variantId, price, currency, available }] }
+// Returns null on any failure (callers fall back to the baked-in catalog data).
+export async function getVariants(handle) {
   try {
     const data = await storefront(PRODUCT_QUERY, { handle });
     const p = data?.product;
-    const v = p?.variants?.nodes?.[0];
-    if (!p || !v) return null;
-    return {
-      title: p.title,
-      descriptionHtml: p.descriptionHtml,
+    if (!p) return null;
+    const variants = (p.variants?.nodes || []).map((v) => ({
+      color: v.selectedOptions?.find((o) => o.name === 'Color')?.value ?? null,
+      variantId: v.id,
       price: v.price.amount,
       currency: v.price.currencyCode,
-      available: p.availableForSale && v.availableForSale,
-      variantId: v.id,
-    };
+      available: v.availableForSale,
+    }));
+    return { descriptionHtml: p.descriptionHtml, variants };
   } catch {
     return null;
   }

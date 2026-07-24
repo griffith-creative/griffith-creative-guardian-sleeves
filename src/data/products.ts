@@ -1,42 +1,39 @@
 // Guardian Sleeves colorway catalog.
-// `live` marks colorways that exist as Shopify products today. Coming-soon
-// colorways still carry their expected handle - the PDP probes it on load and
-// enables Add to Cart automatically once the product appears in Shopify,
-// no redeploy needed. When Zachary adds a color, verify the handle matches.
-import { GUARDIAN_BLACK_HANDLE, GUARDIAN_BLACK_FALLBACK } from '../consts';
+// The store is a SINGLE Shopify product with a "Color" option (see consts.ts);
+// each colorway below is one variant of it. `optionValue` must match the Color
+// value in Shopify exactly — that string is how the PDP resolves the live
+// variant (price/availability) on load. `variantId` is the fallback rendered
+// for SEO/no-JS, then reconfirmed live. When Zachary adds a color in Shopify,
+// add a row here with its exact Color value and variant id.
+import { PRODUCT_HANDLE } from '../consts';
+
+export { PRODUCT_HANDLE };
 
 export interface Colorway {
   slug: string; // URL segment under /products/
   name: string; // display name
   colorName: string; // short color label for the selector
-  swatch: string; // hex for swatch dots / selector
-  handle: string; // Shopify product handle (expected, for coming-soon colors)
-  live: boolean; // product exists in Shopify and is buyable
+  optionValue: string; // exact Shopify "Color" option value for this variant
+  swatch: string; // hex for swatch dots / selector (sampled from product photos)
+  variantId: string; // Shopify variant id for Add to Cart
   price: string; // fallback price, rendered for SEO/no-JS then refreshed live
-  variantId?: string; // fallback variant id (live products only)
+  live: boolean; // buyable (all colors are live variants today)
 }
 
+const V = (id: string) => `gid://shopify/ProductVariant/${id}`;
+
 export const COLORWAYS: Colorway[] = [
-  {
-    slug: 'guardian-black',
-    name: 'Guardian Black',
-    colorName: 'Black',
-    swatch: '#0A0A0A',
-    handle: GUARDIAN_BLACK_HANDLE,
-    live: true,
-    price: GUARDIAN_BLACK_FALLBACK.price,
-    variantId: GUARDIAN_BLACK_FALLBACK.variantId,
-  },
-  { slug: 'guardian-white', name: 'Guardian White', colorName: 'White', swatch: '#EDEDEB', handle: 'guardian-sleeves-white', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-red', name: 'Guardian Red', colorName: 'Red', swatch: '#8F1D1F', handle: 'guardian-sleeves-red', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-orange', name: 'Guardian Orange', colorName: 'Orange', swatch: '#C24A2A', handle: 'guardian-sleeves-orange', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-pink', name: 'Guardian Pink', colorName: 'Pink', swatch: '#D48F9D', handle: 'guardian-sleeves-pink', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-magenta', name: 'Guardian Magenta', colorName: 'Magenta', swatch: '#9B7FB8', handle: 'guardian-sleeves-magenta', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-purple', name: 'Guardian Purple', colorName: 'Purple', swatch: '#6B5BA8', handle: 'guardian-sleeves-purple', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-blue', name: 'Guardian Blue', colorName: 'Blue', swatch: '#2F3E8F', handle: 'guardian-sleeves-blue', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-light-blue', name: 'Guardian Light Blue', colorName: 'Light Blue', swatch: '#8FA9D6', handle: 'guardian-sleeves-light-blue', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-teal', name: 'Guardian Teal', colorName: 'Teal', swatch: '#3FA69E', handle: 'guardian-sleeves-teal', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
-  { slug: 'guardian-green', name: 'Guardian Green', colorName: 'Green', swatch: '#3C7D52', handle: 'guardian-sleeves-green', live: false, price: GUARDIAN_BLACK_FALLBACK.price },
+  { slug: 'guardian-black',      name: 'Guardian Black',       colorName: 'Black',       optionValue: 'Black',       swatch: '#121313', variantId: V('51700666073383'), price: '10.99', live: true },
+  { slug: 'guardian-white',      name: 'Guardian White',       colorName: 'White',       optionValue: 'White',       swatch: '#B2B1AF', variantId: V('51700666106151'), price: '10.99', live: true },
+  { slug: 'guardian-red',        name: 'Guardian Red',         colorName: 'Red',         optionValue: 'Red',         swatch: '#7B4B4F', variantId: V('51700666138919'), price: '10.99', live: true },
+  { slug: 'guardian-green',      name: 'Guardian Green',       colorName: 'Green',       optionValue: 'Green',       swatch: '#4B745A', variantId: V('51700666171687'), price: '10.99', live: true },
+  { slug: 'guardian-blue',       name: 'Guardian Blue',        colorName: 'Blue',        optionValue: 'Blue',        swatch: '#373F71', variantId: V('51700666204455'), price: '10.99', live: true },
+  { slug: 'guardian-orange',     name: 'Guardian Orange',      colorName: 'Orange',      optionValue: 'Orange',      swatch: '#D67262', variantId: V('51700666237223'), price: '10.99', live: true },
+  { slug: 'guardian-purple',     name: 'Guardian Purple',      colorName: 'Purple',      optionValue: 'Purple',      swatch: '#665D91', variantId: V('51700666269991'), price: '10.99', live: true },
+  { slug: 'guardian-pink',       name: 'Guardian Sakura Pink', colorName: 'Sakura Pink', optionValue: 'Sakura Pink', swatch: '#C8828D', variantId: V('51700666302759'), price: '10.99', live: true },
+  { slug: 'guardian-light-blue', name: 'Guardian Lake Blue',   colorName: 'Lake Blue',   optionValue: 'Lake Blue',   swatch: '#8AA2D7', variantId: V('51700666335527'), price: '10.99', live: true },
+  { slug: 'guardian-teal',       name: 'Guardian Mint',        colorName: 'Mint',        optionValue: 'Mint',        swatch: '#41857F', variantId: V('51700666368295'), price: '10.99', live: true },
+  { slug: 'guardian-magenta',    name: 'Guardian Lilac',       colorName: 'Lilac',       optionValue: 'Lilac',       swatch: '#A98DCE', variantId: V('51700666401063'), price: '10.99', live: true },
 ];
 
 // Product photos live at src/assets/images/products/<slug>/NN-<shot>.jpg and

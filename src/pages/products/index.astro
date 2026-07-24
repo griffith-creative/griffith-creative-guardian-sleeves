@@ -23,10 +23,9 @@ import { COLORWAYS, cardFor } from '../../data/products';
           <ProductCard
             name={colorway.name}
             subtitle="Standard Size · Matte"
-            price={colorway.live ? `$${colorway.price}` : 'Coming Soon'}
+            price={`$${colorway.price}`}
             href={`/products/${colorway.slug}`}
             image={cardFor(colorway.slug)}
-            badge={colorway.live ? 'New' : undefined}
           />
         ))}
 
