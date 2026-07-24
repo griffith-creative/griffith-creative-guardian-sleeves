@@ -6,9 +6,14 @@ import CampaignHero from '../components/CampaignHero.astro';
 import SpecBlock from '../components/SpecBlock.astro';
 import LifestyleTile from '../components/LifestyleTile.astro';
 import Marquee from '../components/Marquee.astro';
+import ProductCard from '../components/ProductCard.astro';
 import Footer from '../components/Footer.astro';
 
 import { FORMSPREE_ENDPOINT } from '../consts';
+import { COLORWAYS, cardFor } from '../data/products';
+
+// Feature the first six colorways as a shop-fast grid on the home page.
+const featuredColors = COLORWAYS.slice(0, 6);
 
 import heroImage from '../assets/images/hero-lineup.jpg';
 import lifestyleImage from '../assets/images/lifestyle-lineup.jpg';
@@ -29,10 +34,10 @@ import lifestyleImage from '../assets/images/lifestyle-lineup.jpg';
   <!-- Hero -->
   <CampaignHero
     image={heroImage}
-    imageAlt="The full Guardian Sleeves colorway lineup, boxes staggered with Guardian Black front and center"
+    imageAlt="The full Guardian Sleeves colorway lineup, boxes staggered across all eleven colors"
     headline="MAX PROTECTION. STANDARD FIT."
-    cta="Shop Black"
-    ctaHref="/products/guardian-black"
+    cta="Shop"
+    ctaHref="/products"
     headlineColor="canvas"
   />
 
@@ -71,6 +76,27 @@ import lifestyleImage from '../assets/images/lifestyle-lineup.jpg';
           </span>
           <p class="text-[14px] font-medium text-mute uppercase mt-2" style="letter-spacing: 0.04em;">Supported</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop the colors — fast path to a PDP from the highest-traffic page -->
+  <section class="py-[var(--space-section)]" data-animate="fade-up">
+    <div class="container-guardian">
+      <div class="flex items-end justify-between mb-8 gap-4">
+        <h2 class="font-display text-[40px] md:text-[64px] leading-[0.9] uppercase text-ink">Shop the colors</h2>
+        <a href="/products" class="text-[16px] font-medium text-ink hover:text-accent transition-colors whitespace-nowrap shrink-0">All 11 colors &rarr;</a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-[var(--space-sm)]">
+        {featuredColors.map((colorway) => (
+          <ProductCard
+            name={colorway.name}
+            subtitle="Standard Size · Matte"
+            price={`$${colorway.price}`}
+            href={`/products/${colorway.slug}`}
+            image={cardFor(colorway.slug)}
+          />
+        ))}
       </div>
     </div>
   </section>

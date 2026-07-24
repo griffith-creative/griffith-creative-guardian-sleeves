@@ -32,9 +32,18 @@ function initPDP() {
     const n = parseInt(qtyInput?.value, 10);
     return Math.min(QTY_MAX, Math.max(QTY_MIN, Number.isNaN(n) ? QTY_MIN : n));
   };
+  // Persist quantity across color switches (each color is its own page, so a
+  // full nav would otherwise reset it to 1). Session-scoped.
+  const QTY_KEY = 'guardian_qty';
   const setQty = (n) => {
-    if (qtyInput) qtyInput.value = String(Math.min(QTY_MAX, Math.max(QTY_MIN, n)));
+    const clamped = Math.min(QTY_MAX, Math.max(QTY_MIN, n));
+    if (qtyInput) qtyInput.value = String(clamped);
+    try { sessionStorage.setItem(QTY_KEY, String(clamped)); } catch {}
   };
+  try {
+    const saved = parseInt(sessionStorage.getItem(QTY_KEY), 10);
+    if (!Number.isNaN(saved)) setQty(saved);
+  } catch {}
   document.getElementById('qty-minus')?.addEventListener('click', () => setQty(readQty() - 1));
   document.getElementById('qty-plus')?.addEventListener('click', () => setQty(readQty() + 1));
   qtyInput?.addEventListener('change', () => setQty(readQty()));
@@ -67,7 +76,9 @@ function initPDP() {
         const formatted = formatPrice(v.price, v.currency);
         if (formatted) priceEl.textContent = formatted;
       }
-      if (descEl && p.descriptionHtml) descEl.innerHTML = p.descriptionHtml;
+      // NB: intentionally do NOT overwrite the description here. The PDP renders
+      // tailored per-color copy; the single generic Shopify description would
+      // clobber all 11 with the same text. Price/availability still refresh live.
       if (!v.available) setSoldOut();
     });
   }

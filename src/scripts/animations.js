@@ -108,13 +108,25 @@
       const wrapper = document.createElement('span');
       wrapper.style.display = 'inline-block';
 
-      text.split('').forEach((char, i) => {
-        const span = document.createElement('span');
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.display = 'inline-block';
-        span.style.transform = 'translateY(100%)';
-        span.style.transition = `transform 400ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 30}ms`;
-        wrapper.appendChild(span);
+      // Group per word so a word never breaks mid-letter: each word is a
+      // nowrap inline-block of animated char spans, with a real (breakable)
+      // space between words. This is the only place lines may wrap.
+      let i = 0;
+      text.split(' ').forEach((word, w) => {
+        if (w > 0) wrapper.appendChild(document.createTextNode(' '));
+        const wordSpan = document.createElement('span');
+        wordSpan.style.display = 'inline-block';
+        wordSpan.style.whiteSpace = 'nowrap';
+        word.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.style.display = 'inline-block';
+          span.style.transform = 'translateY(100%)';
+          span.style.transition = `transform 400ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 30}ms`;
+          wordSpan.appendChild(span);
+          i++;
+        });
+        wrapper.appendChild(wordSpan);
       });
 
       el.appendChild(wrapper);
