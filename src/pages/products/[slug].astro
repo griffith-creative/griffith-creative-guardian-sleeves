@@ -182,28 +182,32 @@ const metaDescription = colorway.live
             <p id="pdp-status" role="status" aria-live="polite" class="hidden mt-3 text-[14px] font-medium leading-[1.5]"></p>
           </div>
 
-          <!-- Disclosure Rows -->
-          <div class="mt-10 divide-y divide-hairline border-t border-hairline">
-            <details class="py-6 group">
-              <summary class="flex items-center justify-between cursor-pointer list-none">
-                <span class="text-[16px] font-medium text-ink">Product Details</span>
-                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+          <!-- Disclosure cards -->
+          <div class="mt-10 flex flex-col gap-3">
+            <details class="disclosure group rounded-[14px] border border-hairline bg-canvas transition-colors duration-200 hover:border-stone open:border-ink/50">
+              <summary class="flex items-center justify-between gap-4 px-5 py-5 cursor-pointer list-none select-none [&::-webkit-details-marker]:hidden">
+                <span class="text-[16px] font-medium leading-[1.5] text-ink">Product Details</span>
+                <span class="disclosure-chip shrink-0 grid place-items-center w-7 h-7 rounded-full border border-hairline text-ink transition-[background-color,border-color,color] duration-300 group-hover:bg-soft-cloud group-open:bg-ink group-open:border-ink group-open:text-canvas">
+                  <svg class="disclosure-arrow w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </span>
               </summary>
-              <div id="pdp-description" class="pt-4 text-[16px] text-mute leading-[1.5]">
+              <div id="pdp-description" class="disclosure-body px-5 pb-5 -mt-2 text-[15px] text-mute leading-[1.6]">
                 <p>Protect your cards with Guardian Sleeves in {colorway.colorName}, featuring a sophisticated matte finish that reduces glare and fingerprints while enabling smooth shuffling. The durable construction shields your collection from wear, creasing, and damage, keeping your cards in pristine condition. Perfect for serious collectors and competitive players who demand both performance and style.</p>
               </div>
             </details>
 
-            <details class="py-6 group">
-              <summary class="flex items-center justify-between cursor-pointer list-none">
-                <span class="text-[16px] font-medium text-ink">Shipping & Returns</span>
-                <svg class="w-5 h-5 text-ink transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+            <details class="disclosure group rounded-[14px] border border-hairline bg-canvas transition-colors duration-200 hover:border-stone open:border-ink/50">
+              <summary class="flex items-center justify-between gap-4 px-5 py-5 cursor-pointer list-none select-none [&::-webkit-details-marker]:hidden">
+                <span class="text-[16px] font-medium leading-[1.5] text-ink">Shipping & Returns</span>
+                <span class="disclosure-chip shrink-0 grid place-items-center w-7 h-7 rounded-full border border-hairline text-ink transition-[background-color,border-color,color] duration-300 group-hover:bg-soft-cloud group-open:bg-ink group-open:border-ink group-open:text-canvas">
+                  <svg class="disclosure-arrow w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </span>
               </summary>
-              <div class="pt-4 text-[16px] text-mute leading-[1.5]">
+              <div class="disclosure-body px-5 pb-5 -mt-2 text-[15px] text-mute leading-[1.6]">
                 <p>Standard shipping 3–5 business days. Returns accepted within 30 days of purchase for unopened product.</p>
               </div>
             </details>
@@ -226,6 +230,36 @@ const metaDescription = colorway.live
   .qty-input {
     -moz-appearance: textfield;
     appearance: textfield;
+  }
+
+  /* Disclosure cards: refined arrow + gentle content reveal (not a bare spin). */
+  .disclosure-arrow {
+    transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  details.disclosure[open] .disclosure-arrow {
+    transform: rotate(180deg);
+  }
+  /* subtle hover nudge on the arrow */
+  .disclosure summary:hover .disclosure-arrow {
+    transform: translateY(1.5px);
+  }
+  details.disclosure[open] summary:hover .disclosure-arrow {
+    transform: rotate(180deg) translateY(-1.5px);
+  }
+  /* content fades and eases in when the card opens */
+  details.disclosure[open] .disclosure-body {
+    animation: disclosure-reveal 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes disclosure-reveal {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .disclosure-arrow,
+    details.disclosure[open] .disclosure-body {
+      transition: none;
+      animation: none;
+    }
   }
 </style>
 

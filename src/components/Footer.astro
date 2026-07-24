@@ -7,6 +7,7 @@ const columns = [
     links: [
       { label: 'All Sleeves', href: '/products' },
       { label: 'Get Drops', href: '/#newsletter' },
+      { label: 'Shipping & Returns', href: '/faq' },
     ],
   },
   {
@@ -22,7 +23,6 @@ const columns = [
       { label: 'FAQ', href: '/faq' },
       { label: 'Contact', href: '/contact' },
       { label: 'Find Us', href: '/find-us' },
-      { label: 'Shipping & Returns', href: '/faq' },
     ],
   },
 ];
@@ -31,20 +31,27 @@ const columns = [
 <footer class="border-t border-hairline mt-auto">
   <div class="container-guardian pt-16 pb-8">
     <!-- Wordmark -->
-    <div class="mb-12">
+    <div class="mb-20 md:mb-28">
       <Wordmark role="img" aria-label="Guardian" class="w-full h-auto text-ink select-none" />
     </div>
 
     <!-- Columns -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 mb-14">
       {columns.map((col) => (
         <div>
-          <p class="text-[16px] font-medium leading-[1.5] text-ink mb-4">{col.title}</p>
-          <ul class="flex flex-col gap-2" role="list">
+          <p class="text-[11px] font-medium leading-[1.5] uppercase tracking-[0.18em] text-stone mb-5">{col.title}</p>
+          <ul class="flex flex-col gap-3.5" role="list">
             {col.links.map((link) => (
               <li>
-                <a href={link.href} class="text-[14px] font-medium leading-[1.5] text-mute hover:text-ink transition-colors">
+                <a
+                  href={link.href}
+                  class="group/link relative inline-block text-[15px] font-medium leading-[1.5] text-mute hover:text-ink transition-colors duration-200"
+                >
                   {link.label}
+                  <span
+                    aria-hidden="true"
+                    class="absolute left-0 -bottom-0.5 h-px w-0 bg-ink transition-[width] duration-300 ease-out group-hover/link:w-full"
+                  ></span>
                 </a>
               </li>
             ))}
@@ -58,12 +65,12 @@ const columns = [
 
     <!-- Fine print -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-      <p class="text-[9px] font-medium leading-[1.75] text-mute">
+      <p class="text-[9px] font-medium leading-[1.75] text-stone">
         &copy; {new Date().getFullYear()} Guardian Sleeves. All rights reserved.
       </p>
       <div class="flex items-center gap-4">
-        <a href="https://guardiansleeves.com/policies/privacy-policy" target="_blank" rel="noopener" class="text-[9px] font-medium leading-[1.75] text-mute hover:text-ink transition-colors">Privacy Policy</a>
-        <a href="https://guardiansleeves.com/policies/refund-policy" target="_blank" rel="noopener" class="text-[9px] font-medium leading-[1.75] text-mute hover:text-ink transition-colors">Refund Policy</a>
+        <a href="https://guardiansleeves.com/policies/privacy-policy" target="_blank" rel="noopener" class="text-[9px] font-medium leading-[1.75] text-stone hover:text-ink transition-colors">Privacy Policy</a>
+        <a href="https://guardiansleeves.com/policies/refund-policy" target="_blank" rel="noopener" class="text-[9px] font-medium leading-[1.75] text-stone hover:text-ink transition-colors">Refund Policy</a>
       </div>
     </div>
   </div>
