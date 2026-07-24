@@ -4,19 +4,44 @@ interface Props {
 }
 
 const { specs } = Astro.props;
+
+// Minimal line icons, drawn on one 24 grid at one stroke weight and matched
+// optical size. Concept-true: a single card, a folded material sheet, a matte
+// swatch, a stack of sleeves. Keyed by label so the caller API stays {label,value}.
+const icons: Record<string, string> = {
+  size: `<rect x="7.5" y="4" width="9" height="16" rx="1.5"/>`,
+  material: `<path d="M7 4h6l4 4v12H7z"/><path d="M13 4v4h4"/>`,
+  finish: `<rect x="5" y="5" width="14" height="14" rx="2.5"/><path d="M6 13 13 6"/><path d="M10.5 18 18 10.5"/>`,
+  pack: `<path d="M12 3.4l8 3.7-8 3.7-8-3.7z"/><path d="M4 12l8 3.7 8-3.7"/><path d="M4 16.1l8 3.7 8-3.7"/>`,
+};
+const iconFor = (label: string) => icons[label.trim().toLowerCase()] ?? '';
 ---
 
-<div class="grid grid-cols-2 md:grid-cols-4 border border-hairline">
+<div class="grid grid-cols-2 md:grid-cols-4 border-y border-hairline">
   {specs.map((spec, i) => (
     <div class:list={[
-      'flex flex-col items-center justify-center py-6 px-4 text-center',
-      i % 2 !== 0 && 'border-l border-hairline',
-      i >= 2 && 'border-t border-hairline',
-      i >= 2 && 'md:border-t-0',
-      i > 0 && 'md:border-l md:border-hairline',
+      'relative flex flex-col items-center text-center gap-3.5 pt-9 pb-8 px-4',
+      // inset vertical divider (56% height, centered) — reads as a band, not boxes
+      i > 0 && "before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-[56%] before:w-px before:bg-hairline",
+      i > 0 && i % 2 === 0 && 'before:hidden md:before:block',
+      // inset horizontal divider between the two mobile rows only
+      i >= 2 && "after:content-[''] after:absolute after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[56%] after:h-px after:bg-hairline md:after:hidden",
     ]}>
-      <span class="text-[12px] font-medium leading-[1.5] text-mute uppercase tracking-wide">{spec.label}</span>
-      <span class="text-[16px] font-medium leading-[1.5] text-ink mt-1">{spec.value}</span>
+      <svg
+        class="w-[26px] h-[26px] text-stone"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        set:html={iconFor(spec.label)}
+      />
+      <div class="flex flex-col gap-1">
+        <span class="text-[11px] font-medium tracking-[0.16em] text-mute uppercase">{spec.label}</span>
+        <span class="font-display text-[26px] md:text-[30px] leading-[0.9] uppercase text-ink text-balance">{spec.value}</span>
+      </div>
     </div>
   ))}
 </div>
