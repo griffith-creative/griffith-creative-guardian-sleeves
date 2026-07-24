@@ -101,28 +101,67 @@ const metaDescription = colorway.live
           <h1 class="font-display text-[48px] md:text-[64px] leading-[0.9] uppercase text-ink">{colorway.name}</h1>
           <p id="pdp-price" class="text-[24px] font-medium leading-[1.2] text-ink mt-4">{fallbackPrice}</p>
 
-          <!-- Color selector -->
+          <!-- Color selector — custom menu (replaces native <select> so the open
+               state matches the site theme). Options are real links, so it
+               navigates without JS; the script layers on toggle + keyboard nav. -->
           <div class="mt-8">
-            <label for="color-select" class="block text-[14px] font-medium leading-[1.5] text-ink mb-2">Color</label>
-            <div class="relative inline-block w-full max-w-xs">
-              <span
-                aria-hidden="true"
-                class="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full pointer-events-none"
-                style={`background-color: ${colorway.swatch}; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);`}
-              ></span>
-              <select
-                id="color-select"
-                class="w-full appearance-none border border-hairline rounded-full bg-canvas pl-12 pr-12 py-3 text-[16px] font-medium text-ink cursor-pointer focus:outline-none focus:border-ink transition-colors"
+            <span id="color-label" class="block text-[14px] font-medium leading-[1.5] text-ink mb-2">Color</span>
+            <div id="color-menu" class="relative w-full max-w-xs" data-open="false">
+              <button
+                type="button"
+                id="color-trigger"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-labelledby="color-label color-trigger-label"
+                class="w-full flex items-center gap-3 border border-hairline rounded-full bg-canvas pl-5 pr-4 py-3 cursor-pointer hover:border-ink focus:outline-none focus-visible:border-ink transition-colors"
               >
-                {COLORWAYS.map((c) => (
-                  <option value={`/products/${c.slug}`} selected={c.slug === colorway.slug}>
-                    {c.colorName}{c.live ? '' : ' (Coming Soon)'}
-                  </option>
-                ))}
-              </select>
-              <svg class="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
+                <span
+                  aria-hidden="true"
+                  class="w-4 h-4 rounded-full shrink-0"
+                  style={`background-color: ${colorway.swatch}; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.28);`}
+                ></span>
+                <span id="color-trigger-label" class="flex-1 text-left text-[16px] font-medium text-ink">{colorway.colorName}</span>
+                <svg data-chevron class="w-4 h-4 text-ink shrink-0 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              <ul
+                id="color-list"
+                role="menu"
+                aria-label="Choose a color"
+                class="hidden absolute z-30 left-0 right-0 mt-2 max-h-[min(32rem,calc(100dvh-7rem))] overflow-auto bg-canvas border border-hairline rounded-[12px] shadow-[0_16px_40px_rgba(10,10,10,0.14)] py-2"
+              >
+                {COLORWAYS.map((c) => {
+                  const isCurrent = c.slug === colorway.slug;
+                  return (
+                    <li role="none">
+                      <a
+                        role="menuitem"
+                        href={`/products/${c.slug}`}
+                        data-color-option
+                        aria-current={isCurrent ? 'true' : undefined}
+                        class:list={[
+                          'flex items-center gap-3 px-5 py-2.5 text-[16px] text-ink hover:bg-soft-cloud focus:bg-soft-cloud focus:outline-none transition-colors',
+                          isCurrent ? 'font-semibold' : 'font-medium',
+                        ]}
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="w-4 h-4 rounded-full shrink-0"
+                          style={`background-color: ${c.swatch}; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.28);`}
+                        ></span>
+                        <span class="flex-1">{c.colorName}</span>
+                        {isCurrent && (
+                          <svg class="w-4 h-4 text-accent shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
 
@@ -228,12 +267,46 @@ const metaDescription = colorway.live
   import '../../scripts/shop.js';
 
   function initPdpUi() {
-    // Color selector navigates between colorway pages.
-    const select = document.getElementById('color-select');
-    if (select && !select.dataset.bound) {
-      select.dataset.bound = 'true';
-      select.addEventListener('change', () => {
-        window.location.href = select.value;
+    // Custom color menu: on-theme replacement for the native <select>.
+    const menu = document.getElementById('color-menu');
+    if (menu && !menu.dataset.bound) {
+      menu.dataset.bound = 'true';
+      const trigger = document.getElementById('color-trigger');
+      const list = document.getElementById('color-list');
+      const chevron = trigger?.querySelector('[data-chevron]');
+      const options = Array.from(list?.querySelectorAll('[data-color-option]') ?? []);
+      const isOpen = () => menu.dataset.open === 'true';
+
+      const open = () => {
+        menu.dataset.open = 'true';
+        list?.classList.remove('hidden');
+        trigger?.setAttribute('aria-expanded', 'true');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+        (options.find((o) => o.getAttribute('aria-current') === 'true') ?? options[0])?.focus();
+      };
+      const close = (focusTrigger) => {
+        menu.dataset.open = 'false';
+        list?.classList.add('hidden');
+        trigger?.setAttribute('aria-expanded', 'false');
+        if (chevron) chevron.style.transform = '';
+        if (focusTrigger) trigger?.focus();
+      };
+
+      trigger?.addEventListener('click', () => (isOpen() ? close(false) : open()));
+      trigger?.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+      list?.addEventListener('keydown', (e) => {
+        const i = options.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); options[Math.min(options.length - 1, i + 1)]?.focus(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); options[Math.max(0, i - 1)]?.focus(); }
+        else if (e.key === 'Home') { e.preventDefault(); options[0]?.focus(); }
+        else if (e.key === 'End') { e.preventDefault(); options[options.length - 1]?.focus(); }
+        else if (e.key === 'Escape') { e.preventDefault(); close(true); }
+        else if (e.key === 'Tab') { close(false); }
+      });
+      document.addEventListener('click', (e) => {
+        if (isOpen() && !menu.contains(e.target)) close(false);
       });
     }
 
