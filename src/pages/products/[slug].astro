@@ -52,7 +52,7 @@ const metaDescription = colorway.live
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         <!-- Image Gallery -->
         <div data-animate="fade-up">
-          <div id="pdp-gallery" class="aspect-square bg-soft-cloud overflow-hidden">
+          <div id="pdp-gallery" class="aspect-square overflow-hidden">
             {photos.map((photo, i) => (
               <Image
                 src={photo}
@@ -76,7 +76,7 @@ const metaDescription = colorway.live
                   data-gallery-thumb={i}
                   aria-label={`View ${shotNames[i] ?? 'product'} photo`}
                   aria-pressed={i === 0}
-                  class="aspect-square bg-soft-cloud overflow-hidden border transition-colors data-[active]:border-ink border-transparent hover:border-hairline"
+                  class="aspect-square overflow-hidden border transition-colors data-[active]:border-ink border-transparent hover:border-hairline"
                   data-active={i === 0 ? '' : undefined}
                 >
                   <Image
